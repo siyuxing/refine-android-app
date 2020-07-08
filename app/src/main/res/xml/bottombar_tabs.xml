@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <tabs xmlns:android="http://schemas.android.com/apk/res/android">
+        <tab
+            id="@+id/tab_home"
+            icon="@drawable/home_icon"
+            title="Home" />
+        <tab
+            id="@+id/tab_transactions"
+            icon="@drawable/transaction_icon"
+            title="Transactions" />
+        <tab
+            id="@+id/tab_account"
+            icon="@drawable/accounts_icon"
+            title="Account" />
+
+    <tab
+        id="@+id/tab_more"
+        icon="@drawable/more_icon"
+        title="More"/>
+
+    </tabs>

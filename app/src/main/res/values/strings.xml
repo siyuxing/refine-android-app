@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">悦丰研磨</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="title">悦丰研磨</string>
+    <string name="logout">退出登陆</string>
+    <string name="login">登陆</string>
+    <string name="user_login">用户登陆</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="add">添加</string>
+    <string name="remove">删除</string>
+    <string name="display_name">姓名</string>
+    <string name="choose_permission">选择权限</string>
+    <string name="choose_product">选择产品</string>
+    <string name="choose_owner">选择负责人</string>
+    <string name="choose_delete_item">选择待删除条目</string>
+    <string name="product_name">产品名称</string>
+    <string name="date">日期</string>
+    <string name="owner">负责人</string>
+    <string name="material_count">投料数量</string>
+    <string name="success_count">合格数量</string>
+    <string name="fail_count">报废数量</string>
+    <string name="note">备注</string>
+    <string name="start_date">开始日期</string>
+    <string name="end_date">结束日期</string>
+    <string name="search">查询</string>
+    <string name="delete">删除</string>
+    <string name="modify">修改</string>
+    <string name="update">更新</string>
+    <string name="operation">操作</string>
+    <string name="refine_logo">Refine Logo</string>
+    <string name="full_title">悦丰研磨材料有限公司</string>
+    <string name="work_summary">工作汇总</string>
+    <string name="check_details">查看详情</string>
+    <string name="poured">浇注完成</string>
+    <string name="zero">0</string>
+    <string name="hydro">已醛化完成</string>
+    <string name="dried">干燥完成</string>
+    <string name="cut">切割完成</string>
+    <string name="finished">成品</string>
+    <string name="update_stock">校正库存</string>
+    <string name="dismiss">确认</string>
+</resources>

@@ -1,0 +1,29 @@
+<tabs>
+    <tab
+        id="@+id/home"
+        icon="@drawable/ic_home2"
+        activeColor="@color/tab_select_txt"
+        inActiveColor="@color/tab_unselect_txt"
+        title="Home" />
+    <tab
+        id="@+id/search"
+        icon="@drawable/ic_transactions"
+        activeColor="@color/tab_select_txt"
+        inActiveColor="@color/tab_unselect_txt"
+        title="Transactions" />
+    <tab
+        id="@+id/tickets"
+        icon="@drawable/ic_account2"
+        activeColor="@color/tab_select_txt"
+        inActiveColor="@color/tab_unselect_txt"
+        title="Account" />
+    <tab
+        id="@+id/profilee"
+        icon="@drawable/ic_other4"
+        activeColor="@color/tab_select_txt"
+        inActiveColor="@color/tab_unselect_txt"
+        title="More" />
+
+
+
+</tabs>

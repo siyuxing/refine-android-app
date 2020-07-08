@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/light_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/transaction_toolbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:elevation="1dp"
+            android:orientation="vertical"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:theme="@style/TextLabel">
+
+                <customfonts.EditText_Roboto_Regular
+                    android:id="@+id/product"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/product_name"
+                    android:maxLines="1"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:textSize="15sp"
+                    android:textColor="@color/trans_text_black"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:theme="@style/TextLabel">
+
+                <customfonts.EditText_Roboto_Regular
+                    android:id="@+id/poured"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/poured"
+                    android:text="@string/zero"
+                    android:maxLines="1"
+                    android:inputType="numberDecimal"
+                    android:focusable="false"
+                    android:textSize="15sp"
+                    android:textColor="@color/trans_text_black"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:theme="@style/TextLabel">
+
+                <customfonts.EditText_Roboto_Regular
+                    android:id="@+id/hydro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hydro"
+                    android:text="@string/zero"
+                    android:maxLines="1"
+                    android:inputType="numberDecimal"
+                    android:focusable="false"
+                    android:textSize="15sp"
+                    android:textColor="@color/trans_text_black"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:theme="@style/TextLabel">
+
+                <customfonts.EditText_Roboto_Regular
+                    android:id="@+id/dried"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/dried"
+                    android:text="@string/zero"
+                    android:maxLines="1"
+                    android:inputType="numberDecimal"
+                    android:focusable="false"
+                    android:textSize="15sp"
+                    android:textColor="@color/trans_text_black"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:theme="@style/TextLabel">
+
+                <customfonts.EditText_Roboto_Regular
+                    android:id="@+id/cut"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cut"
+                    android:text="@string/zero"
+                    android:maxLines="1"
+                    android:inputType="numberDecimal"
+                    android:focusable="false"
+                    android:textSize="15sp"
+                    android:textColor="@color/trans_text_black"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:theme="@style/TextLabel">
+
+                <customfonts.EditText_Roboto_Regular
+                    android:id="@+id/finished"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/finished"
+                    android:text="@string/zero"
+                    android:maxLines="1"
+                    android:inputType="numberDecimal"
+                    android:focusable="false"
+                    android:textSize="15sp"
+                    android:textColor="@color/trans_text_black"/>
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/pop_up"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_height="60dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            android:weightSum="2" >
+
+            <Button
+                android:id="@+id/update_stock"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@drawable/button_background"
+                android:gravity="center"
+                android:onClick="updateStock"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:text="@string/update_stock"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/dismiss"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@drawable/button_background"
+                android:gravity="center"
+                android:onClick="dismiss"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:text="@string/dismiss"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

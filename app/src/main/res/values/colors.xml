@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#455A64</color>
+    <color name="colorPrimaryDark">#263238</color>
+    <color name="colorAccent">#90A4AE</color>
+    <color name="black">#000000</color>
+    <color name="light_weight_gray">#99000000</color>
+    <color name="white">#ffffff</color>
+    <color name="text_black">#484848</color>
+    <color name="text_gray">#7b8994</color>
+    <color name="trans_text_black">#212121</color>
+    <color name="view_gray">#ececec</color>
+    <color name="tab_select_txt">#484848</color>
+    <color name="tab_unselect_txt">#cecece</color>
+    <color name="colorSuccess">#00796B</color>
+    <color name="colorError">#B00020</color>
+    <color name="light_background">#EEEEEE</color>
+    <color name="light_frame">#BDBDBD</color>
+</resources>
