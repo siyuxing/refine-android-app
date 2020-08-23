@@ -23,86 +23,116 @@
             android:paddingRight="24dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:theme="@style/TextLabel">
-
-                <customfonts.EditText_Roboto_Regular
-                    android:id="@+id/username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/username"
-                    android:maxLines="1"
-                    android:textSize="15sp"
-                    android:textColor="@color/trans_text_black"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:theme="@style/TextLabel">
-
-                <customfonts.EditText_Roboto_Regular
-                    android:id="@+id/display_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/display_name"
-                    android:maxLines="1"
-                    android:textSize="15sp"
-                    android:textColor="@color/trans_text_black"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:theme="@style/TextLabel">
-
-                <customfonts.EditText_Roboto_Regular
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/password"
-                    android:maxLines="1"
-                    android:textSize="15sp"
-                    android:inputType="textPassword"
-                    android:textColor="@color/trans_text_black"/>
-
-            </android.support.design.widget.TextInputLayout>
-
             <android.support.design.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:theme="@style/TextLabel">
+                android:layout_marginTop="15dp">
 
                 <customfonts.EditText_Roboto_Regular
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginStart="2dp"
-                    android:hint="@string/choose_permission"
+                    android:hint="@string/choose_product"
                     android:inputType="none"
                     android:focusable="false"
                     android:textSize="15sp"
-                    android:textColor="@color/colorAccent" />
-
+                    android:textColor="?android:textColorHint"/>
             </android.support.design.widget.CoordinatorLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/permission_list"
+            <Spinner
+                android:id="@+id/product_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="20dp"
                 android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:textSize="15sp"
                 android:clipToPadding="false"
-                />
+                android:textColor="@color/colorAccent"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:theme="@style/TextLabel">
+
+                <customfonts.EditText_Roboto_Regular
+                    android:id="@+id/history_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/date"
+                    android:maxLines="1"
+                    android:clickable="true"
+                    android:textSize="15sp"
+                    android:textColor="@color/trans_text_black"
+                    android:focusable="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:theme="@style/TextLabel">
+
+                <customfonts.PrefixEditTest
+                    android:id="@+id/sheet_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sheet_id"
+                    android:inputType="numberDecimal"
+                    android:textSize="15sp"
+                    android:textColor="@color/trans_text_black"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:theme="@style/TextLabel">
+
+                <customfonts.EditText_Roboto_Regular
+                    android:id="@+id/material"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/material"
+                    android:textSize="15sp"
+                    android:textColor="@color/trans_text_black"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:theme="@style/TextLabel">
+
+                <customfonts.EditText_Roboto_Regular
+                    android:id="@+id/material_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/material_count"
+                    android:maxLines="1"
+                    android:inputType="numberDecimal"
+                    android:textSize="15sp"
+                    android:textColor="@color/trans_text_black"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:theme="@style/TextLabel">
+
+                <customfonts.EditText_Roboto_Regular
+                    android:id="@+id/product_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/product_count"
+                    android:maxLines="1"
+                    android:inputType="numberDecimal"
+                    android:textSize="15sp"
+                    android:textColor="@color/trans_text_black"/>
+
+            </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
 
@@ -113,7 +143,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="vertical">
-
         <android.support.design.widget.CoordinatorLayout
             android:id="@+id/pop_up"
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -122,17 +151,16 @@
             android:layout_height="60dp" />
 
         <Button
-            android:id="@+id/login_button"
-            android:onClick="addUser"
+            android:id="@+id/create_button"
+            android:onClick="create"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add"
+            android:text="@string/create"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:gravity="center"
             android:background="@drawable/button_background"
-            android:textSize="15sp"/>
-
+            android:textSize="15sp" />
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

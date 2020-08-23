@@ -85,7 +85,7 @@ public class DatabaseAccessor {
     }
 
     private String computeConnectionString() {
-        return String.format("jdbc:mysql://%s:3306/refine", DB_HOST_NAME);
+        return String.format("jdbc:mysql://%s:3306/refine2", DB_HOST_NAME);
     }
 
     private Properties getConnectionProperties() {

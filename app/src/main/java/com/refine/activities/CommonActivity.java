@@ -1,5 +1,8 @@
 package com.refine.activities;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +10,8 @@ import android.view.View;
 import android.widget.TextView;
 import com.refine.R;
 import com.refine.account.AccountProfileLocator;
+import com.refine.database.DatabaseHelper;
+import com.refine.database.InsuffcientProductException;
 
 public abstract class CommonActivity extends AppCompatActivity {
     public static final String DATE_FORMAT = "yyyy-MM-dd"; //In which you need put here
@@ -74,5 +79,20 @@ public abstract class CommonActivity extends AppCompatActivity {
         View snackBarView = snackbar.getView();
         snackBarView.setBackground(getResources().getDrawable(R.color.colorError));
         snackbar.show();
+    }
+
+    protected SimpleDateFormat getDateFormat() {
+        return new SimpleDateFormat(DATE_FORMAT, Locale.CHINA);
+    }
+
+    protected void runInBackground(final Runnable func) {
+        Thread background = new Thread() {
+            public void run() {
+                func.run();
+            }
+        };
+
+        // start thread
+        background.start();
     }
 }

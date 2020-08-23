@@ -12,8 +12,13 @@ import com.refine.activities.CommonActivity;
 import com.refine.adapters.ActivityListAdapter;
 
 public class AdminOperations extends CommonActivity {
+    public static final String ADD_USER = "添加用户";
+    public static final String CHECK_USERS = "查看用户";
+    public static final String ADD_PRODUCT = "添加产品";
+    public static final String CHECK_PRODUCT = "查看产品";
+
     private final static List<String> ADMIN_ACTIVITY_LIST =
-            Lists.newArrayList("添加用户", "删除用户", "添加产品", "删除产品");
+            Lists.newArrayList(ADD_USER, CHECK_USERS, ADD_PRODUCT, CHECK_PRODUCT);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

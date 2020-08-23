@@ -23,21 +23,31 @@
         <activity android:name="com.refine.activities.admin.AdminUserHome" />
         <activity android:name="com.refine.activities.admin.AdminOperations" />
         <activity android:name="com.refine.activities.admin.AddUserActivity" />
-        <activity android:name="com.refine.activities.admin.DeleteUserActivity" />
+        <activity android:name="com.refine.activities.admin.CheckUserActivity" />
         <activity android:name="com.refine.activities.admin.AddProductActivity" />
-        <activity android:name="com.refine.activities.admin.DeleteProductActivity" />
+        <activity android:name="com.refine.activities.admin.CheckProductActivity" />
+        <activity android:name="com.refine.activities.admin.UserDetailsActivity" />
+        <activity android:name="com.refine.activities.admin.ProductDetailsActivity" />
 
         <activity android:name="com.refine.activities.product.ProductOwnerOperations" />
         <activity android:name="com.refine.activities.product.ProductOwnerJobHistorySearchActivity" />
-        <activity android:name="com.refine.activities.product.AddPourHistoryActivity" />
-        <activity android:name="com.refine.activities.product.AddHydroHistoryActivity" />
-        <activity android:name="com.refine.activities.product.AddDryHistoryActivity" />
-        <activity android:name="com.refine.activities.product.AddCutHistoryActivity" />
-        <activity android:name="com.refine.activities.product.AddPackHistoryActivity" />
+        <activity android:name="com.refine.activities.product.CreateWorkflowSheetActivity" />
+
+        <activity android:name="com.refine.activities.product.check.CheckPendingPourTasksActivity" />
+        <activity android:name="com.refine.activities.product.check.CheckPendingHydroTasksActivity" />
+        <activity android:name="com.refine.activities.product.check.CheckPendingDryTasksActivity" />
+        <activity android:name="com.refine.activities.product.check.CheckPendingCutTasksActivity" />
+        <activity android:name="com.refine.activities.product.check.CheckPendingPackTasksActivity" />
+
+        <activity android:name="com.refine.activities.product.record.RecordPourTaskHistoryActivity" />
+        <activity android:name="com.refine.activities.product.record.RecordHydroTaskHistoryActivity" />
+        <activity android:name="com.refine.activities.product.record.RecordDryTaskHistoryActivity" />
+        <activity android:name="com.refine.activities.product.record.RecordCutTaskHistoryActivity" />
+        <activity android:name="com.refine.activities.product.record.RecordPackTaskHistoryActivity" />
         <activity android:name="com.refine.activities.product.AddPickupHistoryActivity" />
 
         <activity android:name="com.refine.activities.search.SearchOperations" />
-        <activity android:name="com.refine.activities.search.AdminJobHistorySearchActivity" />
+        <activity android:name="com.refine.activities.search.AdminWorkflowSheetSearchActivity" />
         <activity android:name="com.refine.activities.search.JobHistoryListActivity" />
         <activity android:name="com.refine.activities.search.JobHistoryDetailsActivity" />
         <activity android:name="com.refine.activities.search.OwnerSummarySearchActivity" />

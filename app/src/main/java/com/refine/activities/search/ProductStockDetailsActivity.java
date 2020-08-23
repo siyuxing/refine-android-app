@@ -125,34 +125,35 @@ public class ProductStockDetailsActivity extends CommonActivity {
         Thread background = new Thread() {
             public void run() {
                 try {
+                    Long productId = DatabaseHelper.getProductId(productName);
                     long oldPouredCount = productStockMap.containsKey(ProductStatus.待醛化) ?
                                           productStockMap.get(ProductStatus.待醛化).getNumOfProduct() : 0;
                     if (oldPouredCount != pouredCount) {
-                        DatabaseHelper.updateProductCountInStock(productName, ProductStatus.待醛化.getStatusCode(), pouredCount);
+                        DatabaseHelper.updateProductCountInStock(productId, ProductStatus.待醛化.getStatusCode(), pouredCount);
                     }
 
                     long oldHydroCount = productStockMap.containsKey(ProductStatus.待干燥) ?
                                          productStockMap.get(ProductStatus.待干燥).getNumOfProduct() : 0;
                     if (oldHydroCount != hydroCount) {
-                        DatabaseHelper.updateProductCountInStock(productName, ProductStatus.待干燥.getStatusCode(), hydroCount);
+                        DatabaseHelper.updateProductCountInStock(productId, ProductStatus.待干燥.getStatusCode(), hydroCount);
                     }
 
                     long oldDriedCount = productStockMap.containsKey(ProductStatus.待切割) ?
                                          productStockMap.get(ProductStatus.待切割).getNumOfProduct() : 0;
                     if (oldDriedCount != driedCount) {
-                        DatabaseHelper.updateProductCountInStock(productName, ProductStatus.待切割.getStatusCode(), driedCount);
+                        DatabaseHelper.updateProductCountInStock(productId, ProductStatus.待切割.getStatusCode(), driedCount);
                     }
 
                     long oldCutCount = productStockMap.containsKey(ProductStatus.待包装入库) ?
                                        productStockMap.get(ProductStatus.待包装入库).getNumOfProduct() : 0;
                     if (oldCutCount != cutCount) {
-                        DatabaseHelper.updateProductCountInStock(productName, ProductStatus.待包装入库.getStatusCode(), cutCount);
+                        DatabaseHelper.updateProductCountInStock(productId, ProductStatus.待包装入库.getStatusCode(), cutCount);
                     }
 
                     long oldFinishedCount = productStockMap.containsKey(ProductStatus.成品) ?
                                             productStockMap.get(ProductStatus.成品).getNumOfProduct() : 0;
                     if (oldFinishedCount != finishedCount) {
-                        DatabaseHelper.updateProductCountInStock(productName, ProductStatus.成品.getStatusCode(), finishedCount);
+                        DatabaseHelper.updateProductCountInStock(productId, ProductStatus.成品.getStatusCode(), finishedCount);
                     }
 
                     successPopUp("更新记录成功！");

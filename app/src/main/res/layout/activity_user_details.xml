@@ -35,6 +35,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/username"
                     android:maxLines="1"
+                    android:inputType="none"
+                    android:focusable="false"
                     android:textSize="15sp"
                     android:textColor="@color/trans_text_black"/>
 
@@ -67,7 +69,7 @@
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/password"
+                    android:hint="@string/new_password"
                     android:maxLines="1"
                     android:textSize="15sp"
                     android:inputType="textPassword"
@@ -123,10 +125,10 @@
 
         <Button
             android:id="@+id/login_button"
-            android:onClick="addUser"
+            android:onClick="modifyUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add"
+            android:text="@string/modify"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:gravity="center"

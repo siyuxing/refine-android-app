@@ -37,6 +37,9 @@ public class MultiSelectItemAdapter extends RecyclerView.Adapter<MultiSelectItem
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.item.setText(activityList.get(position));
+        if (checkedPositions.contains(position)) {
+            holder.item.setSelected(true);
+        }
     }
 
     @Override
@@ -46,6 +49,16 @@ public class MultiSelectItemAdapter extends RecyclerView.Adapter<MultiSelectItem
 
     public Set<Integer> getCheckedPositions() {
         return checkedPositions;
+    }
+
+    public void setCheckedItems(List<String> checkedActivities) {
+        for (int i = 0; i < activityList.size(); i++) {
+            if (checkedActivities.contains(activityList.get(i))) {
+                checkedPositions.add(i);
+            } else {
+                checkedPositions.remove(i);
+            }
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

@@ -18,6 +18,7 @@ import com.refine.database.DatabaseHelper;
 import com.refine.model.ActivityConstants;
 import com.refine.model.JobHistory;
 
+@Deprecated
 public class JobHistoryListActivity extends CommonActivity {
     private RecyclerView recyclerview;
     private JobHistoryAdapter jobHistoryAdapter;
@@ -53,14 +54,15 @@ public class JobHistoryListActivity extends CommonActivity {
                     try {
                         JobHistory jobHistory = jobHistoryAdapter.getSelected();
 
+                        Long productId = DatabaseHelper.getProductId(jobHistory.getProductName());
                         if (jobHistory.getOperation().getToStatus() != null) {
-                            DatabaseHelper.mutateProductCountInStock(jobHistory.getProductName(),
+                            DatabaseHelper.mutateProductCountInStock(productId,
                                                                      jobHistory.getOperation().getToStatus().getStatusCode(),
                                                                      -jobHistory.getNumOfSuccess());
                         }
 
                         if (jobHistory.getOperation().getFromStatus() != null) {
-                            DatabaseHelper.mutateProductCountInStock(jobHistory.getProductName(),
+                            DatabaseHelper.mutateProductCountInStock(productId,
                                                                      jobHistory.getOperation().getFromStatus().getStatusCode(),
                                                                      jobHistory.getNumOfSuccess() + jobHistory.getNumOfFailure());
                         }

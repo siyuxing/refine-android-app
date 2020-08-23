@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="38ac1cd7-6a1e-4a35-813d-9d81e46dc605" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/refine/activities/admin/AdminOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/refine/activities/admin/AdminOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/refine/model/ActivityConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/refine/model/ActivityConstants.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3_API_27" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/app">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="OpelBanking" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="OpelBanking" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="resourceFile" />
+        <option value="layoutResourceFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1ZtTJ0yfY5VYQoPUizjuA7klKJ2" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DEBUGGABLE_DEVICE" value="emulator-5554" />
+    <property name="DEBUGGABLE_PROCESS" value="com.wsdesign.a.opelbanking" />
+    <property name="DEBUGGER_ID" value="Auto" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_3_API_27" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-07-08T03:30:43.143Z" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SHOW_ALL_PROCESSES" value="false" />
+    <property name="SelectDeploymentTargetsDialog.selectedDevices" value="Pixel_3a_API_24" />
+    <property name="VectorAssetImportPath" value="$USER_HOME$/Downloads" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="device.picker.selection" value="3100f4ca964c13e3" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/java" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/libs" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.5482234" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="PsdUISettings">
+    <option name="MODULE_TAB" value="Properties" />
+    <option name="LAST_EDITED_SIGNING_CONFIG" value="debug" />
+    <option name="LAST_EDITED_BUILD_TYPE" value="release" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="database" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/libs" />
+      <recent name="F:\Android Projects\OpelBanking\OpelBanking\app\src\main\res\drawable" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable-hdpi" />
+      <recent name="$PROJECT_DIR$/app/src/main/res" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
+    </key>
+    <key name="MoveInnerDialog.RECENTS_KEY">
+      <recent name="com.refine.adapters" />
+      <recent name="com.yuefeng.account" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
+      <recent name="$PROJECT_DIR$/app/src/main/assets/fonts" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Android App.app">
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android App">
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <Java />
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1532064303976" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <Java />
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
+      <option name="TESTING_TYPE" value="0" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="INCLUDE_GRADLE_EXTRA_OPTIONS" value="true" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <Java />
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1532064303976" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OpelBanking:app [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/app" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <module name="" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Android App.app" />
+      <item itemvalue="Gradle.OpelBanking:app [clean]" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.OpelBanking:app [clean]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>$USER_HOME$/.subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="38ac1cd7-6a1e-4a35-813d-9d81e46dc605" name="Default" comment="" />
+      <created>1531818354455</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1531818354455</updated>
+      <workItem from="1595546074817" duration="11000" />
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="-1688" y="46" width="1431" height="773" key="#PSD" timestamp="1593318390722">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-1688" y="46" width="1431" height="773" key="#PSD/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1593318390722" />
+    <state x="-1146" y="151" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1593386409601">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-1146" y="151" key="#com.intellij.fileTypes.FileTypeChooser/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1593386409601" />
+    <state x="-1107" y="218" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1593297794203">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-1107" y="218" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1593297794203" />
+    <state x="-2767" y="58" key="#com.intellij.ide.util.MemberChooser" timestamp="1594054769841">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-2767" y="58" key="#com.intellij.ide.util.MemberChooser/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594054769841" />
+    <state x="-2843" y="132" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1593315082078">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-2843" y="132" key="#com.intellij.ide.util.TreeClassChooserDialog/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1593315082078" />
+    <state x="-1275" y="274" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1593315089820">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-1275" y="274" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1593315089820" />
+    <state x="-1086" y="208" width="451" height="276" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1593303201954">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-1086" y="208" width="451" height="276" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1593303201954" />
+    <state x="-1385" y="189" key="#com.intellij.refactoring.move.moveInner.MoveInnerDialog" timestamp="1593995558386">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-1385" y="189" key="#com.intellij.refactoring.move.moveInner.MoveInnerDialog/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1593995558386" />
+    <state x="-2861" y="58" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog" timestamp="1593315083431">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-2861" y="58" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1593315083431" />
+    <state x="-1237" y="-367" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1593660743270">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-1237" y="-367" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1593660743270" />
+    <state x="-1122" y="95" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1594164064141">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-1122" y="95" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594164064141" />
+    <state x="-1272" y="103" key="AndroidCreateResourceFileDialog" timestamp="1594065542603">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-1272" y="103" key="AndroidCreateResourceFileDialog/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594065542603" />
+    <state x="-1001" y="196" key="AndroidCreateXmlResourceDialog" timestamp="1594068635230">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-1001" y="196" key="AndroidCreateXmlResourceDialog/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594068635230" />
+    <state x="-997" y="114" key="AndroidProcessChooserDialog" timestamp="1593633778839">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-997" y="114" key="AndroidProcessChooserDialog/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1593633778839" />
+    <state x="-1072" y="90" key="FileChooserDialogImpl" timestamp="1594090061890">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-1072" y="90" key="FileChooserDialogImpl/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594090061890" />
+    <state x="-997" y="242" key="Github.ShareDialog" timestamp="1594190047720">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-997" y="242" key="Github.ShareDialog/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594190047720" />
+    <state x="-1248" y="53" key="Github.UntrackedFilesDialog" timestamp="1594190059748">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-1248" y="53" key="Github.UntrackedFilesDialog/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594190059748" />
+    <state width="1678" height="408" key="GridCell.Tab.0.bottom" timestamp="1594179090066">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state width="1678" height="408" key="GridCell.Tab.0.bottom/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594179090066" />
+    <state width="1678" height="408" key="GridCell.Tab.0.center" timestamp="1594179090060">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state width="1678" height="408" key="GridCell.Tab.0.center/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594179090060" />
+    <state width="1678" height="408" key="GridCell.Tab.0.left" timestamp="1594179090059">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state width="1678" height="408" key="GridCell.Tab.0.left/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594179090059" />
+    <state width="1678" height="408" key="GridCell.Tab.0.right" timestamp="1594179090064">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state width="1678" height="408" key="GridCell.Tab.0.right/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594179090064" />
+    <state width="1678" height="476" key="GridCell.Tab.1.bottom" timestamp="1594107385719">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state width="1678" height="476" key="GridCell.Tab.1.bottom/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594107385719" />
+    <state width="1678" height="476" key="GridCell.Tab.1.center" timestamp="1594107385718">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state width="1678" height="476" key="GridCell.Tab.1.center/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594107385718" />
+    <state width="1678" height="476" key="GridCell.Tab.1.left" timestamp="1594107385718">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state width="1678" height="476" key="GridCell.Tab.1.left/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594107385718" />
+    <state width="1678" height="476" key="GridCell.Tab.1.right" timestamp="1594107385719">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state width="1678" height="476" key="GridCell.Tab.1.right/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594107385719" />
+    <state x="-1351" y="-20" key="SettingsEditor" timestamp="1594189972184">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-1351" y="-20" key="SettingsEditor/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594189972184" />
+    <state width="860" height="708" key="XDebugger.FullValuePopup" timestamp="1593401076152">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state width="860" height="708" key="XDebugger.FullValuePopup/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1593401076152" />
+    <state x="-1065" y="126" key="chooseDestDirectoryDialog" timestamp="1593297075493">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-1065" y="126" key="chooseDestDirectoryDialog/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1593297075493" />
+    <state x="-3440" y="-367" width="1720" height="1417" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1594179006218">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-3440" y="-367" width="1720" height="1417" key="com.android.tools.idea.avdmanager.AvdListDialog/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594179006218" />
+    <state x="-3030" y="84" width="900" height="590" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1593633828405">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-3030" y="84" width="900" height="590" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1593633828405" />
+    <state x="-1229" y="-99" width="816" height="729" key="find.popup" timestamp="1594106895216">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-1229" y="-99" width="816" height="729" key="find.popup/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594106895216" />
+    <state x="-1195" y="151" key="run.anything.popup" timestamp="1592690506915">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-1195" y="151" key="run.anything.popup/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1592690506915" />
+    <state x="-2915" y="-42" width="670" height="676" key="search.everywhere.popup" timestamp="1594141904993">
+      <screen x="-3440" y="-367" width="3440" height="1417" />
+    </state>
+    <state x="-2915" y="-42" width="670" height="676" key="search.everywhere.popup/-3440.-367.3440.1417/0.23.1680.1027@-3440.-367.3440.1417" timestamp="1594141904993" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="app">
+        <watch expression="((UnsupportedOperationException)e).shadow$_monitor_" custom="java.lang.UnsupportedOperationException" />
+        <watch expression="msg.sendingUid" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/OpelBanking$OpelBanking_app__clean_.ic" NAME="OpelBanking:app [clean] Coverage Results" MODIFIED="1592198184346" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>

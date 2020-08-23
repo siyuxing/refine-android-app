@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +26,8 @@ public class AddUserActivity extends CommonActivity {
 
     private List<String> permissions = Lists.newArrayList(Operation.extractPermissions());
     private MultiSelectItemAdapter multiSelectItemAdapter;
+
+    private List<String> allUserNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +53,28 @@ public class AddUserActivity extends CommonActivity {
 
         multiSelectItemAdapter = new MultiSelectItemAdapter(AddUserActivity.this, permissions);
         recyclerView.setAdapter(multiSelectItemAdapter);
+
+        // Ignore NetworkOnMainThreadException in this activity
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        try {
+            allUserNames = DatabaseHelper.listAllUserNames();
+        } catch (Exception e) {
+            errorPopUp("获取信息失败！");
+            allUserNames = new ArrayList<>();
+        }
     }
 
     public void addUser(View v) {
         final String displayName = displayNameET.getText().toString();
         final String username = usernameET.getText().toString();
         final String password = passwordET.getText().toString();
+
+        if (allUserNames.contains(username)) {
+            errorPopUp("用户名已存在！");
+            return;
+        }
 
         List<String> selectedItems = new ArrayList<>();
         for (Integer position : multiSelectItemAdapter.getCheckedPositions()) {
@@ -67,38 +86,38 @@ public class AddUserActivity extends CommonActivity {
                     || StringUtils.isNullOrEmpty(password)
                     || selectedItems.isEmpty()) {
             errorPopUp("用户信息无效！");
-        } else {
-            Thread background = new Thread() {
-                public void run() {
-                    try {
-                        List<String> permissions = Operation.getPermissionCodes(selectedItems);
-
-                        boolean adminSelected = false;
-                        for (String permission : selectedItems) {
-                            if (Operation.ADMIN_PERMISSION_NAME.equals(permission)) {
-                                adminSelected = true;
-                                break;
-                            }
-                        }
-
-                        DatabaseHelper.createUser(username, password, adminSelected);
-                        DatabaseHelper.updateUserInformation(username, displayName, adminSelected, permissions);
-
-                        successPopUp("添加用户成功！");
-
-                        sleep(1000);
-
-                        finish();
-                    } catch (Exception e) {
-                        errorPopUp("添加用户失败！");
-                    }
-                }
-            };
-
-            // start thread
-            background.start();
+            return;
         }
 
+        Thread background = new Thread() {
+            public void run() {
+                try {
+                    List<String> permissions = Operation.getPermissionCodes(selectedItems);
+
+                    boolean adminSelected = false;
+                    for (String permission : selectedItems) {
+                        if (Operation.ADMIN_PERMISSION_NAME.equals(permission)) {
+                            adminSelected = true;
+                            break;
+                        }
+                    }
+
+                    DatabaseHelper.createUser(username, password, adminSelected);
+                    DatabaseHelper.updateUserInformation(username, displayName, adminSelected, permissions);
+
+                    successPopUp("添加用户成功！");
+
+                    sleep(1000);
+
+                    finish();
+                } catch (Exception e) {
+                    errorPopUp("添加用户失败！");
+                }
+            }
+        };
+
+        // start thread
+        background.start();
     }
 
 }

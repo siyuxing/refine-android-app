@@ -13,7 +13,6 @@ import com.refine.activities.CommonActivity;
 import com.refine.adapters.ActivityListAdapter;
 
 public class ProductOwnerOperations extends CommonActivity {
-    public static final String JOB_HISTORY = "工作记录查询";
     public static final String PRODUCT_STOCK_SEARCH = "库存信息查询";
     private RecyclerView recyclerview;
     private ActivityListAdapter activityListAdapter;
@@ -30,7 +29,7 @@ public class ProductOwnerOperations extends CommonActivity {
         recyclerview.setLayoutManager(layoutManager);
         recyclerview.setItemAnimator(new DefaultItemAnimator());
 
-        List<String> operations = Lists.newArrayList(JOB_HISTORY, PRODUCT_STOCK_SEARCH);
+        List<String> operations = Lists.newArrayList(PRODUCT_STOCK_SEARCH);
         operations.addAll(AccountProfileLocator.getProfile().getAllowedOperations());
         activityListAdapter = new ActivityListAdapter(ProductOwnerOperations.this, operations);
         recyclerview.setAdapter(activityListAdapter);

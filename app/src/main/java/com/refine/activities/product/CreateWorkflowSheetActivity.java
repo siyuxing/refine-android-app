@@ -14,20 +14,23 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import com.google.common.collect.Lists;
+import com.mysql.jdbc.StringUtils;
 import com.refine.R;
-import com.refine.account.AccountProfileLocator;
 import com.refine.activities.CommonActivity;
 import com.refine.database.DatabaseHelper;
 import com.refine.model.ActivityConstants;
 import com.refine.model.Operation;
-import com.refine.model.ProductStatus;
+import customfonts.PrefixEditTest;
 
-public class AddPourHistoryActivity extends CommonActivity {
+public class CreateWorkflowSheetActivity extends CommonActivity {
+    public static final String WORKFLOW_SHEET_ID_DATE_FORMAT = "yyyyMMdd-"; //In which you need put here
+
     private EditText dateET;
+    private PrefixEditTest sheetIdET;
+    private EditText materialET;
     private EditText materialCountET;
-    private EditText successCountET;
-    private EditText failCountET;
-    private EditText noteET;
+    private EditText productCountET;
+
     private Spinner productSpinner;
 
     private Calendar myCalendar = Calendar.getInstance();
@@ -38,17 +41,19 @@ public class AddPourHistoryActivity extends CommonActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_pour_history);
+        setContentView(R.layout.activity_create_workflow_sheet);
 
-        setTitle("添加浇注信息");
+        setTitle("创建任务单");
 
         dateET = findViewById(R.id.history_date);
+        sheetIdET = findViewById(R.id.sheet_id);
+        materialET = findViewById(R.id.material);
         materialCountET = findViewById(R.id.material_count);
-        successCountET = findViewById(R.id.success_count);
-        failCountET = findViewById(R.id.fail_count);
-        noteET = findViewById(R.id.note);
+        productCountET = findViewById(R.id.product_count);
 
         productSpinner = findViewById(R.id.product_list);
+
+        updateDate();
 
         dateSetListener = (view, year, monthOfYear, dayOfMonth) -> {
             myCalendar.set(Calendar.YEAR, year);
@@ -57,10 +62,11 @@ public class AddPourHistoryActivity extends CommonActivity {
             updateDate();
         };
 
-        dateET.setOnClickListener(v -> new DatePickerDialog(AddPourHistoryActivity.this, dateSetListener,
-                                                    myCalendar.get(Calendar.YEAR),
-                                                    myCalendar.get(Calendar.MONTH),
-                                                    myCalendar.get(Calendar.DAY_OF_MONTH)).show());
+        dateET.setOnClickListener(v -> new DatePickerDialog(CreateWorkflowSheetActivity.this, dateSetListener,
+                                                            myCalendar.get(Calendar.YEAR),
+                                                            myCalendar.get(Calendar.MONTH),
+                                                            myCalendar.get(Calendar.DAY_OF_MONTH)).show());
+
     }
 
     @Override
@@ -80,32 +86,36 @@ public class AddPourHistoryActivity extends CommonActivity {
         }
     }
 
-    public void addHistory(View v) {
+    public void create(View v) {
         if (ActivityConstants.SPINNER_PLACE_HOLDER_OPTION.equals(allProducts.get(productSpinner.getSelectedItemPosition()))) {
             errorPopUp("请选择产品");
         } else {
-            final String note = noteET.getText().toString();
+            final String sheetId = sheetIdET.getText().toString();
+            final String material = materialET.getText().toString();
             final String productName = allProducts.get(productSpinner.getSelectedItemPosition());
 
             final Date date;
-            final int materialCount, successCount, failCount;
+            final int materialCount, productCount;
             try {
                 materialCount = Integer.parseInt(materialCountET.getText().toString());
-                successCount = Integer.parseInt(successCountET.getText().toString());
-                failCount = Integer.parseInt(failCountET.getText().toString());
+                productCount = Integer.parseInt(productCountET.getText().toString());
                 date = Date.valueOf(dateET.getText().toString());
             } catch (Exception e) {
-                errorPopUp("产品数量信息或日期无效！");
+                errorPopUp("任务单数量信息或日期无效！");
+                return;
+            }
+
+            if (StringUtils.isNullOrEmpty(sheetId) || StringUtils.isNullOrEmpty(material)) {
+                errorPopUp("任务单号或原材料信息无效！");
                 return;
             }
 
             Thread background = new Thread() {
                 public void run() {
                     try {
-
-                        DatabaseHelper.mutateProductCountInStock(productName, ProductStatus.待醛化.getStatusCode(), successCount);
-                        DatabaseHelper.addJobHistory(productName, date, AccountProfileLocator.getProfile().getCurrentUser(),
-                                                     Operation.浇注.getOperationCode(), note, successCount, failCount, materialCount);
+                        Long productId = DatabaseHelper.getProductId(productName);
+                        DatabaseHelper.addWorkflowSheet(productId, sheetId, date, material, materialCount, productCount);
+                        DatabaseHelper.createWorkflowDetails(productId, sheetId, date, productCount, Operation.浇注);
 
                         successPopUp("添加记录成功！");
 
@@ -124,8 +134,9 @@ public class AddPourHistoryActivity extends CommonActivity {
     }
 
     private void updateDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT, Locale.CHINA);
+        dateET.setText(getDateFormat().format(myCalendar.getTime()));
 
-        dateET.setText(sdf.format(myCalendar.getTime()));
+        SimpleDateFormat sheetIdSdf = new SimpleDateFormat(WORKFLOW_SHEET_ID_DATE_FORMAT, Locale.CHINA);
+        sheetIdET.setCharactersNoChangeInitial(sheetIdSdf.format(myCalendar.getTime()));
     }
 }

@@ -1,9 +1,7 @@
 package com.refine.activities.product;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -16,11 +14,13 @@ import com.refine.activities.CommonActivity;
 import com.refine.activities.search.JobHistoryListActivity;
 import com.refine.model.ActivityConstants;
 
+@Deprecated
 public class ProductOwnerJobHistorySearchActivity extends CommonActivity {
     private EditText startDateET;
     private EditText endDateET;
 
-    private Calendar myCalendar = Calendar.getInstance();
+    private Calendar startCalendar = Calendar.getInstance();
+    private Calendar endCalendar = Calendar.getInstance();
     private DatePickerDialog.OnDateSetListener startDateSetListener;
     private DatePickerDialog.OnDateSetListener endDateSetListener;
 
@@ -34,31 +34,34 @@ public class ProductOwnerJobHistorySearchActivity extends CommonActivity {
         startDateET = findViewById(R.id.start_date);
         endDateET = findViewById(R.id.end_date);
 
+        startCalendar.set(Calendar.MONTH, startCalendar.get(Calendar.MONTH) - 1);
+        startCalendar.set(Calendar.DAY_OF_MONTH, startCalendar.get(Calendar.DAY_OF_MONTH) + 1);
+        updateStartDate();
+        updateEndDate();
+
         startDateSetListener = (view, year, monthOfYear, dayOfMonth) -> {
-            // TODO Auto-generated method stub
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH, monthOfYear);
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            startCalendar.set(Calendar.YEAR, year);
+            startCalendar.set(Calendar.MONTH, monthOfYear);
+            startCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             updateStartDate();
         };
 
         endDateSetListener = (view, year, monthOfYear, dayOfMonth) -> {
-            // TODO Auto-generated method stub
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH, monthOfYear);
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            endCalendar.set(Calendar.YEAR, year);
+            endCalendar.set(Calendar.MONTH, monthOfYear);
+            endCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             updateEndDate();
         };
 
         startDateET.setOnClickListener(v -> new DatePickerDialog(ProductOwnerJobHistorySearchActivity.this, startDateSetListener,
-                                                                 myCalendar.get(Calendar.YEAR),
-                                                                 myCalendar.get(Calendar.MONTH),
-                                                                 myCalendar.get(Calendar.DAY_OF_MONTH)).show());
+                                                                 startCalendar.get(Calendar.YEAR),
+                                                                 startCalendar.get(Calendar.MONTH),
+                                                                 startCalendar.get(Calendar.DAY_OF_MONTH)).show());
 
         endDateET.setOnClickListener(v -> new DatePickerDialog(ProductOwnerJobHistorySearchActivity.this, endDateSetListener,
-                                                               myCalendar.get(Calendar.YEAR),
-                                                               myCalendar.get(Calendar.MONTH),
-                                                               myCalendar.get(Calendar.DAY_OF_MONTH)).show());
+                                                               endCalendar.get(Calendar.YEAR),
+                                                               endCalendar.get(Calendar.MONTH),
+                                                               endCalendar.get(Calendar.DAY_OF_MONTH)).show());
     }
 
     public void search(View v) {
@@ -95,13 +98,11 @@ public class ProductOwnerJobHistorySearchActivity extends CommonActivity {
     }
 
     private void updateStartDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT, Locale.CHINA);
-        startDateET.setText(sdf.format(myCalendar.getTime()));
+        startDateET.setText(getDateFormat().format(startCalendar.getTime()));
     }
 
     private void updateEndDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT, Locale.CHINA);
-        endDateET.setText(sdf.format(myCalendar.getTime()));
+        endDateET.setText(getDateFormat().format(endCalendar.getTime()));
     }
 
     private void resetInputs() {

@@ -18,6 +18,7 @@ import com.refine.adapters.OwnerSummaryAdapter;
 import com.refine.database.DatabaseHelper;
 import com.refine.model.ActivityConstants;
 import com.refine.model.OwnerSummary;
+import com.refine.model.User;
 
 public class OwnerSummaryDetailsActivity  extends CommonActivity {
     private RecyclerView recyclerview;
@@ -87,16 +88,17 @@ public class OwnerSummaryDetailsActivity  extends CommonActivity {
                 String owner = extras.getString(ActivityConstants.OWNER_NAME_EXTRA);
                 String product = extras.getString(ActivityConstants.PRODUCT_NAME_EXTRA);
 
-                ownerET.setText(owner);
+                User user = DatabaseHelper.getUser(owner);
+                ownerET.setText(user.getDisplayName());
                 ownerSummaries = DatabaseHelper.searchOwnerSummary(startDate, endDate, owner, product);
             }
 
             if (ownerSummaries.isEmpty()) {
                 normalPopUp("工作记录为空！");
+            } else {
+                ownerSummaryAdapter = new OwnerSummaryAdapter(OwnerSummaryDetailsActivity.this, ownerSummaries);
+                recyclerview.setAdapter(ownerSummaryAdapter);
             }
-
-            ownerSummaryAdapter = new OwnerSummaryAdapter(OwnerSummaryDetailsActivity.this, ownerSummaries);
-            recyclerview.setAdapter(ownerSummaryAdapter);
         } catch (Exception e) {
             errorPopUp("获取工作历史记录失败！");
             finish();

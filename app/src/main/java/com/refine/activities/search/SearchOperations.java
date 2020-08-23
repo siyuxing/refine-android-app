@@ -12,7 +12,7 @@ import com.refine.activities.CommonActivity;
 import com.refine.adapters.ActivityListAdapter;
 
 public class SearchOperations extends CommonActivity {
-    public static final String FULL_JOB_HISTORY_SEARCH = "完整工作信息查询";
+    public static final String FULL_JOB_HISTORY_SEARCH = "任务单信息查询";
     public static final String OWNER_SUMMARY_SEARCH = "负责人汇总信息查询";
 
     private static final List<String> SEARCH_ACTIVITY_LIST =

@@ -1,8 +1,13 @@
 package com.refine.activities.admin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.EditText;
+import com.google.common.collect.Lists;
 import com.mysql.jdbc.StringUtils;
 import com.refine.R;
 import com.refine.activities.CommonActivity;
@@ -11,6 +16,9 @@ import com.refine.database.ResourceAlreadyExistException;
 
 public class AddProductActivity extends CommonActivity {
     private EditText productNameET;
+
+
+    private List<String> allProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,35 +35,52 @@ public class AddProductActivity extends CommonActivity {
         super.onStart();
 
         productNameET.setText(null);
+
+        // Ignore NetworkOnMainThreadException in this activity
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        try {
+            allProducts = DatabaseHelper.listProducts();
+        } catch (Exception e) {
+            errorPopUp("获取信息失败！");
+            allProducts = new ArrayList<>();
+        }
     }
 
     public void addProduct(View v) {
         final String productName = productNameET.getText().toString();
 
+        if (allProducts.contains(productName)) {
+            errorPopUp("产品已存在！");
+            return;
+        }
+
         if (StringUtils.isNullOrEmpty(productName)) {
             errorPopUp("产品名称无效！");
-        } else {
-            Thread background = new Thread() {
-                public void run() {
-                    try {
-                        DatabaseHelper.addProduct(productName);
-
-                        successPopUp("添加产品成功！");
-
-                        sleep(1000);
-
-                        finish();
-                    } catch (ResourceAlreadyExistException e) {
-                        errorPopUp("产品已存在！");
-                    } catch (Exception e) {
-                        errorPopUp("添加产品失败！");
-                    }
-                }
-            };
-
-            // start thread
-            background.start();
+            return;
         }
+
+        Thread background = new Thread() {
+            public void run() {
+                try {
+                    DatabaseHelper.addProduct(productName);
+
+                    successPopUp("添加产品成功！");
+
+                    sleep(1000);
+
+                    finish();
+                } catch (ResourceAlreadyExistException e) {
+                    errorPopUp("产品已存在！");
+                } catch (Exception e) {
+                    errorPopUp("添加产品失败！");
+                }
+            }
+        };
+
+        // start thread
+        background.start();
     }
 
 }

@@ -16,6 +16,7 @@ import com.refine.database.DatabaseHelper;
 import com.refine.model.ActivityConstants;
 import com.refine.model.JobHistory;
 
+@Deprecated
 public class JobHistoryDetailsActivity extends CommonActivity {
     private EditText dateET;
     private EditText successCountET;
@@ -55,8 +56,7 @@ public class JobHistoryDetailsActivity extends CommonActivity {
                     ((EditText) findViewById(R.id.operation)).setText(jobHistory.getOperation().name());
 
                     dateET = findViewById(R.id.history_date);
-                    SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT, Locale.CHINA);
-                    dateET.setText(sdf.format(jobHistory.getDate()));
+                    dateET.setText(getDateFormat().format(jobHistory.getDate()));
                     successCountET = findViewById(R.id.success_count);
                     if (jobHistory.getNumOfSuccess() != null) {
                         successCountET.setText(String.valueOf(jobHistory.getNumOfSuccess()));
@@ -103,16 +103,17 @@ public class JobHistoryDetailsActivity extends CommonActivity {
         Thread background = new Thread() {
             public void run() {
                 try {
+                    Long productId = DatabaseHelper.getProductId(jobHistory.getProductName());
                     int newTotal = successCount + failCount;
                     int oldTotal = jobHistory.getNumOfSuccess() + jobHistory.getNumOfFailure();
                     if (jobHistory.getOperation().getFromStatus() != null) {
-                        DatabaseHelper.mutateProductCountInStock(jobHistory.getProductName(),
+                        DatabaseHelper.mutateProductCountInStock(productId,
                                                                  jobHistory.getOperation().getFromStatus().getStatusCode(),
                                                                  oldTotal - newTotal);
                     }
 
                     if (jobHistory.getOperation().getToStatus() != null) {
-                        DatabaseHelper.mutateProductCountInStock(jobHistory.getProductName(),
+                        DatabaseHelper.mutateProductCountInStock(productId,
                                                                  jobHistory.getOperation().getToStatus().getStatusCode(),
                                                                  successCount - jobHistory.getNumOfSuccess());
                     }
@@ -135,9 +136,7 @@ public class JobHistoryDetailsActivity extends CommonActivity {
     }
 
     private void updateDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT, Locale.CHINA);
-
-        dateET.setText(sdf.format(myCalendar.getTime()));
+        dateET.setText(getDateFormat().format(myCalendar.getTime()));
     }
 
     private void failActivityOnError() {

@@ -23,42 +23,89 @@
             android:paddingRight="24dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
-            <android.support.design.widget.CoordinatorLayout
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="12dp"
+                android:theme="@style/TextLabel">
 
-                <customfonts.EditText_Roboto_Regular
+                <customfonts.PrefixEditTest
+                    android:id="@+id/sheet_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="@string/choose_product"
+                    android:hint="@string/sheet_id"
+                    android:maxLines="1"
                     android:inputType="none"
                     android:focusable="false"
                     android:textSize="15sp"
-                    android:textColor="?android:textColorHint"/>
-            </android.support.design.widget.CoordinatorLayout>
-
-            <Spinner
-                android:id="@+id/product_list"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:textSize="15sp"
-                android:clipToPadding="false"
-                android:textColor="@color/colorAccent"/>
+                    android:textColor="@color/trans_text_black"/>
+            </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:theme="@style/TextLabel">
 
                 <customfonts.EditText_Roboto_Regular
-                    android:id="@+id/history_date"
+                    android:id="@+id/product"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/date"
+                    android:hint="@string/product_name"
+                    android:maxLines="1"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:textSize="15sp"
+                    android:textColor="@color/trans_text_black"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:theme="@style/TextLabel">
+
+                <customfonts.EditText_Roboto_Regular
+                    android:id="@+id/create_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/create_date"
+                    android:maxLines="1"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:textSize="15sp"
+                    android:textColor="@color/trans_text_black" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:theme="@style/TextLabel">
+
+                <customfonts.EditText_Roboto_Regular
+                    android:id="@+id/total_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/product_count"
+                    android:maxLines="1"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:textSize="15sp"
+                    android:textColor="@color/trans_text_black"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:theme="@style/TextLabel">
+
+                <customfonts.EditText_Roboto_Regular
+                    android:id="@+id/finish_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/finish_date"
                     android:maxLines="1"
                     android:clickable="true"
                     android:textSize="15sp"
@@ -70,25 +117,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:theme="@style/TextLabel">
-
-                <customfonts.EditText_Roboto_Regular
-                    android:id="@+id/material_count"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/material_count"
-                    android:maxLines="1"
-                    android:inputType="numberDecimal"
-                    android:textSize="15sp"
-                    android:textColor="@color/trans_text_black"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:theme="@style/TextLabel">
 
                 <customfonts.EditText_Roboto_Regular
@@ -106,7 +135,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:theme="@style/TextLabel">
 
                 <customfonts.EditText_Roboto_Regular
@@ -124,7 +153,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:theme="@style/TextLabel">
 
                 <customfonts.EditText_Roboto_Regular
@@ -145,6 +174,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="vertical">
+
         <android.support.design.widget.CoordinatorLayout
             android:id="@+id/pop_up"
             xmlns:android="http://schemas.android.com/apk/res/android"

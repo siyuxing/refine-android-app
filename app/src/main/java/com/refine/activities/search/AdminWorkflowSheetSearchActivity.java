@@ -1,10 +1,9 @@
 package com.refine.activities.search;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -20,20 +19,24 @@ import com.refine.R;
 import com.refine.activities.CommonActivity;
 import com.refine.database.DatabaseHelper;
 import com.refine.model.ActivityConstants;
+import com.refine.model.User;
 
-public class AdminJobHistorySearchActivity extends CommonActivity {
+public class AdminWorkflowSheetSearchActivity extends CommonActivity {
     private static final String PLACE_HOLDER_OPTION = "全部";
+    private static final User PLACE_HOLDER_USER = User.createPlaceHolderUser(PLACE_HOLDER_OPTION);
+
     private EditText startDateET;
     private EditText endDateET;
     private Spinner ownerSpinner;
     private Spinner productSpinner;
 
-    private Calendar myCalendar = Calendar.getInstance();
+    private Calendar startCalendar = Calendar.getInstance();
+    private Calendar endCalendar = Calendar.getInstance();
     private DatePickerDialog.OnDateSetListener startDateSetListener;
     private DatePickerDialog.OnDateSetListener endDateSetListener;
 
-    private List<String> allUsers = Lists.newArrayList(PLACE_HOLDER_OPTION);
-    private List<String> allProducts = Lists.newArrayList(PLACE_HOLDER_OPTION);
+    private List<User> allUsers;
+    private List<String> allProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,31 +51,34 @@ public class AdminJobHistorySearchActivity extends CommonActivity {
         ownerSpinner = findViewById(R.id.owner);
         productSpinner = findViewById(R.id.product);
 
+        startCalendar.set(Calendar.MONTH, startCalendar.get(Calendar.MONTH) - 1);
+        startCalendar.set(Calendar.DAY_OF_MONTH, startCalendar.get(Calendar.DAY_OF_MONTH) + 1);
+        updateStartDate();
+        updateEndDate();
+
         startDateSetListener = (view, year, monthOfYear, dayOfMonth) -> {
-            // TODO Auto-generated method stub
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH, monthOfYear);
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            startCalendar.set(Calendar.YEAR, year);
+            startCalendar.set(Calendar.MONTH, monthOfYear);
+            startCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             updateStartDate();
         };
 
         endDateSetListener = (view, year, monthOfYear, dayOfMonth) -> {
-            // TODO Auto-generated method stub
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH, monthOfYear);
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            endCalendar.set(Calendar.YEAR, year);
+            endCalendar.set(Calendar.MONTH, monthOfYear);
+            endCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             updateEndDate();
         };
 
-        startDateET.setOnClickListener(v -> new DatePickerDialog(AdminJobHistorySearchActivity.this, startDateSetListener,
-                                                                 myCalendar.get(Calendar.YEAR),
-                                                                 myCalendar.get(Calendar.MONTH),
-                                                                 myCalendar.get(Calendar.DAY_OF_MONTH)).show());
+        startDateET.setOnClickListener(v -> new DatePickerDialog(AdminWorkflowSheetSearchActivity.this, startDateSetListener,
+                                                                 startCalendar.get(Calendar.YEAR),
+                                                                 startCalendar.get(Calendar.MONTH),
+                                                                 startCalendar.get(Calendar.DAY_OF_MONTH)).show());
 
-        endDateET.setOnClickListener(v -> new DatePickerDialog(AdminJobHistorySearchActivity.this, endDateSetListener,
-                                                               myCalendar.get(Calendar.YEAR),
-                                                               myCalendar.get(Calendar.MONTH),
-                                                               myCalendar.get(Calendar.DAY_OF_MONTH)).show());
+        endDateET.setOnClickListener(v -> new DatePickerDialog(AdminWorkflowSheetSearchActivity.this, endDateSetListener,
+                                                               endCalendar.get(Calendar.YEAR),
+                                                               endCalendar.get(Calendar.MONTH),
+                                                               endCalendar.get(Calendar.DAY_OF_MONTH)).show());
     }
 
     @Override
@@ -83,9 +89,13 @@ public class AdminJobHistorySearchActivity extends CommonActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {
-            allUsers = Lists.newArrayList(PLACE_HOLDER_OPTION);
+            allUsers = Lists.newArrayList(PLACE_HOLDER_USER);
             allUsers.addAll(DatabaseHelper.listAllUsers());
-            ArrayAdapter<String> ownerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, allUsers);
+            List<String> displayUsers = new ArrayList<>();
+            for (User user : allUsers) {
+                displayUsers.add(user.getDisplayName());
+            }
+            ArrayAdapter<String> ownerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, displayUsers);
             ownerSpinner.setAdapter(ownerAdapter);
 
             allProducts = Lists.newArrayList(PLACE_HOLDER_OPTION);
@@ -117,12 +127,12 @@ public class AdminJobHistorySearchActivity extends CommonActivity {
 
         Thread background = new Thread() {
             public void run() {
-                Intent intent = new Intent(AdminJobHistorySearchActivity.this, JobHistoryListActivity.class);
+                Intent intent = new Intent(AdminWorkflowSheetSearchActivity.this, JobHistoryListActivity.class);
                 intent.putExtra(ActivityConstants.START_DATE_EXTRA, startDateString);
                 intent.putExtra(ActivityConstants.END_DATE_EXTRA, endDateString);
                 if (ownerSpinner.getSelectedItemPosition() != AdapterView.INVALID_POSITION
-                            && !PLACE_HOLDER_OPTION.equals(allUsers.get(ownerSpinner.getSelectedItemPosition()))) {
-                    intent.putExtra(ActivityConstants.OWNER_NAME_EXTRA, allUsers.get(ownerSpinner.getSelectedItemPosition()));
+                            && !PLACE_HOLDER_USER.equals(allUsers.get(ownerSpinner.getSelectedItemPosition()))) {
+                    intent.putExtra(ActivityConstants.OWNER_NAME_EXTRA, allUsers.get(ownerSpinner.getSelectedItemPosition()).getUsername());
                 }
 
                 if (productSpinner.getSelectedItemPosition() != AdapterView.INVALID_POSITION
@@ -139,12 +149,10 @@ public class AdminJobHistorySearchActivity extends CommonActivity {
     }
 
     private void updateStartDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT, Locale.CHINA);
-        startDateET.setText(sdf.format(myCalendar.getTime()));
+        startDateET.setText(getDateFormat().format(startCalendar.getTime()));
     }
 
     private void updateEndDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT, Locale.CHINA);
-        endDateET.setText(sdf.format(myCalendar.getTime()));
+        endDateET.setText(getDateFormat().format(endCalendar.getTime()));
     }
 }

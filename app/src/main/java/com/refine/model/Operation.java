@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public enum Operation {
+    创建任务单("add_workflow", 1, null, null),
     浇注("jiaozhu", 1, null, ProductStatus.待醛化),
     醛化("quanhua", 2, ProductStatus.待醛化, ProductStatus.待干燥),
     干燥("dry", 3, ProductStatus.待干燥, ProductStatus.待切割),
@@ -18,7 +19,6 @@ public enum Operation {
     private final int rank;
     private final ProductStatus fromStatus;
     private final ProductStatus toStatus;
-
 
     Operation(String operationCode, int rank,
               ProductStatus fromStatus,
