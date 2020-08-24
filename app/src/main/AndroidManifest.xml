@@ -48,6 +48,8 @@
 
         <activity android:name="com.refine.activities.search.SearchOperations" />
         <activity android:name="com.refine.activities.search.AdminWorkflowSheetSearchActivity" />
+        <activity android:name="com.refine.activities.search.WorkflowSheetListActivity" />
+        <activity android:name="com.refine.activities.search.WorkflowSheetDetailsActivity" />
         <activity android:name="com.refine.activities.search.JobHistoryListActivity" />
         <activity android:name="com.refine.activities.search.JobHistoryDetailsActivity" />
         <activity android:name="com.refine.activities.search.OwnerSummarySearchActivity" />

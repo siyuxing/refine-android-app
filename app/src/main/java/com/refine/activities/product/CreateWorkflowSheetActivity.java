@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import com.google.common.collect.Lists;
 import com.mysql.jdbc.StringUtils;
 import com.refine.R;
+import com.refine.account.AccountProfileLocator;
 import com.refine.activities.CommonActivity;
 import com.refine.database.DatabaseHelper;
 import com.refine.model.ActivityConstants;
@@ -114,7 +115,8 @@ public class CreateWorkflowSheetActivity extends CommonActivity {
                 public void run() {
                     try {
                         Long productId = DatabaseHelper.getProductId(productName);
-                        DatabaseHelper.addWorkflowSheet(productId, sheetId, date, material, materialCount, productCount);
+                        DatabaseHelper.addWorkflowSheet(productId, sheetId, date, material, materialCount, productCount,
+                                                        AccountProfileLocator.getProfile().getCurrentUser());
                         DatabaseHelper.createWorkflowDetails(productId, sheetId, date, productCount, Operation.浇注);
 
                         successPopUp("添加记录成功！");

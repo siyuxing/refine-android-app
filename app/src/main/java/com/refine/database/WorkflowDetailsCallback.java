@@ -54,7 +54,7 @@ public class WorkflowDetailsCallback implements ResultSetCallback<List<WorkflowD
                 details.setStartDate(rs.getDate(START_DATE_COLUMN));
             }
             if (!StringUtils.isNullOrEmpty(rs.getString(FINISH_DATE_COLUMN))) {
-                details.setStartDate(rs.getDate(FINISH_DATE_COLUMN));
+                details.setFinishDate(rs.getDate(FINISH_DATE_COLUMN));
             }
 
             details.setFinish(rs.getBoolean(IS_FINISH_COLUMN));

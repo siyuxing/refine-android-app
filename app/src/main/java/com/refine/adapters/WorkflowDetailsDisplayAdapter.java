@@ -1,8 +1,6 @@
 package com.refine.adapters;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,17 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.refine.R;
-import com.refine.activities.CommonActivity;
+import com.refine.model.ActivityConstants;
 import com.refine.model.WorkflowDetails;
 
-public class WorkflowDetailsAdapter extends RecyclerView.Adapter<WorkflowDetailsAdapter.ViewHolder> {
+public class WorkflowDetailsDisplayAdapter extends RecyclerView.Adapter<WorkflowDetailsDisplayAdapter.ViewHolder> {
     private Context context;
     private ViewGroup viewGroup;
     private List<WorkflowDetails> workflowDetails;
     private LayoutInflater mInflater;
     private int checkedPosition = -1;
 
-    public WorkflowDetailsAdapter(Context context, List<WorkflowDetails> workflowDetails) {
+    public WorkflowDetailsDisplayAdapter(Context context, List<WorkflowDetails> workflowDetails) {
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
         this.workflowDetails = workflowDetails;
@@ -32,7 +30,7 @@ public class WorkflowDetailsAdapter extends RecyclerView.Adapter<WorkflowDetails
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.workflow_detail_item_list, parent, false);
+        View view = mInflater.inflate(R.layout.workflow_detail_display_item, parent, false);
         return new ViewHolder(parent, view);
     }
 
@@ -52,18 +50,20 @@ public class WorkflowDetailsAdapter extends RecyclerView.Adapter<WorkflowDetails
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ViewGroup parent;
-        private TextView workId;
-        private TextView product;
-        private TextView startDate;
-        private TextView totalCount;
+        private TextView operation;
+        private TextView owner;
+        private TextView finished;
+        private TextView success;
+        private TextView fail;
 
         public ViewHolder(ViewGroup parent, View itemView) {
             super(itemView);
             this.parent = parent;
-            this.workId = itemView.findViewById(R.id.work_id);
-            this.product = itemView.findViewById(R.id.product);
-            this.startDate = itemView.findViewById(R.id.start_date);
-            this.totalCount = itemView.findViewById(R.id.total_count);
+            this.operation = itemView.findViewById(R.id.operation);
+            this.owner = itemView.findViewById(R.id.owner);
+            this.finished = itemView.findViewById(R.id.finished);
+            this.success = itemView.findViewById(R.id.success_count);
+            this.fail = itemView.findViewById(R.id.fail_count);
             itemView.setOnClickListener(this);
         }
 
@@ -84,12 +84,14 @@ public class WorkflowDetailsAdapter extends RecyclerView.Adapter<WorkflowDetails
         }
 
         private void setWorkflowDetails(WorkflowDetails workflowDetails) {
-            SimpleDateFormat sdf = new SimpleDateFormat(CommonActivity.DATE_FORMAT, Locale.CHINA);
-
-            workId.setText(workflowDetails.getWorkflowId());
-            product.setText(workflowDetails.getProductName());
-            startDate.setText(sdf.format(workflowDetails.getStartDate()));
-            totalCount.setText(String.valueOf(workflowDetails.getNumOfTotal()));
+            operation.setText(workflowDetails.getOperation() != null ? workflowDetails.getOperation().name()
+                                                                     : ActivityConstants.UNKNOWN_FIELD_VALUE);
+            owner.setText(workflowDetails.getOwner() != null ? workflowDetails.getOwner() : ActivityConstants.UNKNOWN_FIELD_VALUE);
+            finished.setText(Boolean.TRUE.equals(workflowDetails.isFinish()) ? "已完成" : "未完成");
+            success.setText(workflowDetails.getNumOfSuccess() != null ? String.valueOf(workflowDetails.getNumOfSuccess())
+                                                                      : ActivityConstants.UNKNOWN_FIELD_VALUE);
+            fail.setText(workflowDetails.getNumOfFailure() != null ? String.valueOf(workflowDetails.getNumOfFailure())
+                                                                   : ActivityConstants.UNKNOWN_FIELD_VALUE);
         }
     }
 }

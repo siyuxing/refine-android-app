@@ -11,7 +11,6 @@ import com.refine.activities.admin.CheckProductActivity;
 import com.refine.activities.admin.CheckUserActivity;
 import com.refine.activities.product.AddPickupHistoryActivity;
 import com.refine.activities.product.CreateWorkflowSheetActivity;
-import com.refine.activities.product.ProductOwnerJobHistorySearchActivity;
 import com.refine.activities.product.ProductOwnerOperations;
 import com.refine.activities.product.check.CheckPendingCutTasksActivity;
 import com.refine.activities.product.check.CheckPendingDryTasksActivity;
@@ -54,8 +53,10 @@ public final class ActivityConstants {
     public static final String OPERATION_EXTRA = "OPERATION";
     public static final String USER_NAME_EXTRA = "USER_NAME";
     public static final String WORKFLOW_DETAILS_EXTRA = "WORKFLOW_DETAILS";
+    public static final String WORKFLOW_SHEET_EXTRA = "WORKFLOW_SHEET";
 
     public static final String JOB_HISTORY_ID_EXTRA = "JOB_HISTORY_ID";
 
     public static final String SPINNER_PLACE_HOLDER_OPTION = "请选择";
+    public static final String UNKNOWN_FIELD_VALUE = "未知";
 }

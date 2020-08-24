@@ -20,7 +20,7 @@ import com.refine.model.ActivityConstants;
 import com.refine.model.OwnerSummary;
 import com.refine.model.User;
 
-public class OwnerSummaryDetailsActivity  extends CommonActivity {
+public class OwnerSummaryDetailsActivity extends CommonActivity {
     private RecyclerView recyclerview;
     private EditText ownerET;
     private List<OwnerSummary> ownerSummaries = new ArrayList<>();

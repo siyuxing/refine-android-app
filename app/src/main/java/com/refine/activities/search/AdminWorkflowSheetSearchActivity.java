@@ -43,10 +43,13 @@ public class AdminWorkflowSheetSearchActivity extends CommonActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_history_search);
 
-        setTitle("工作信息查询");
+        setTitle("任务单查询");
 
         startDateET = findViewById(R.id.start_date);
         endDateET = findViewById(R.id.end_date);
+
+        EditText ownerTitleET = findViewById(R.id.owner_title);
+        ownerTitleET.setHint("提交人");
 
         ownerSpinner = findViewById(R.id.owner);
         productSpinner = findViewById(R.id.product);
@@ -127,7 +130,7 @@ public class AdminWorkflowSheetSearchActivity extends CommonActivity {
 
         Thread background = new Thread() {
             public void run() {
-                Intent intent = new Intent(AdminWorkflowSheetSearchActivity.this, JobHistoryListActivity.class);
+                Intent intent = new Intent(AdminWorkflowSheetSearchActivity.this, WorkflowSheetListActivity.class);
                 intent.putExtra(ActivityConstants.START_DATE_EXTRA, startDateString);
                 intent.putExtra(ActivityConstants.END_DATE_EXTRA, endDateString);
                 if (ownerSpinner.getSelectedItemPosition() != AdapterView.INVALID_POSITION

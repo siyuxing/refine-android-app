@@ -15,6 +15,7 @@ import com.refine.model.ProductStatus;
 import com.refine.model.ProductStock;
 import com.refine.model.User;
 import com.refine.model.WorkflowDetails;
+import com.refine.model.WorkflowSheet;
 
 public class DatabaseHelper {
     private static final String DROP_USER_QUERY = "DROP USER IF EXISTS ?@'%'";
@@ -59,8 +60,11 @@ public class DatabaseHelper {
                                                                    " WHERE id = ?";
 
     private static final String ADD_WORKFLOW_SHEET_QUERY = "INSERT INTO workflow_sheet (product_id, id, start_date, material, material_num," +
-                                                                " expected_product_count) VALUES (?, ?, ?, ?, ?, ?)";
+                                                                " expected_product_count, requester) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String COMPLETE_WORKFLOW_SHEET_QUERY = "UPDATE workflow_sheet SET end_date = ?, final_product_count = ? WHERE id = ?";
+    private static final String SEARCH_WORKFLOW_SHEET_QUERY = "SELECT ws.*, product_name FROM workflow_sheet ws join products p on ws.product_id = p.id " +
+                                                                      "WHERE start_date >= ? AND start_date <= ?";
+    private static final String SEARCH_WORKFLOW_SHEET_ORDER_BY = " ORDER BY ws.id, product_id";
 
     private static final String ADD_WORKFLOW_DETAILS_QUERY = "INSERT INTO workflow_details (workflow_id, product_id, start_date, total, operation)"
                                                                    + " VALUES (?, ?, ?, ?, ?)";
@@ -69,6 +73,8 @@ public class DatabaseHelper {
     private static final String SEARCH_PENDING_WORKFLOW_DETAILS_QUERY = "SELECT wd.*, product_name FROM workflow_details wd join products p on wd.product_id = p.id" +
                                                                                 " WHERE operation = ? AND is_finish = '0'";
     private static final String GET_WORKFLOW_DETAILS_QUERY = "SELECT wd.*, product_name FROM workflow_details wd join products p on wd.product_id = p.id WHERE wd.id = ?";
+    private static final String GET_WORKFLOW_DETAILS_BY_SHEET_ID_QUERY = "SELECT wd.*, product_name FROM workflow_details wd join products p on wd.product_id = p.id WHERE wd.workflow_id = ?";
+
 
     private static final String ADD_DISCHARGE_HISTORY_QUERY = "INSERT INTO discharge_history (date, owner_username, count, product_id, additional_note)"
                                                                      + " VALUES (?, ?, ?, ?, ?)";
@@ -81,8 +87,10 @@ public class DatabaseHelper {
     private static final String SEARCH_PRODUCT_STOCK = "select ps.*, product_name FROM product_stock ps join products p on ps.product_id = p.id WHERE product_name = ?";
     private static final String SEARCH_PRODUCT_STOCK_STATUS_FILTER = " AND status = ?";
 
+    private static final String REQUESTER_FILTER = " AND requester = ?";
     private static final String OWNER_USERNAME_FILTER = " AND owner_username = ?";
     private static final String PRODUCT_NAME_FILTER = " AND product_name = ?";
+    private static final String PRODUCT_ID_FILTER = " AND product_id = ?";
     private static final String OPERATION_FILTER = " AND operation = ?";
 
     // User related queries
@@ -343,10 +351,10 @@ public class DatabaseHelper {
     }
 
     // Workflow Sheet related queries
-    public static void addWorkflowSheet(Long productId, String sheetId, Date startDate, String material, Integer materialCount, Integer expectedProductCount) throws Exception {
+    public static void addWorkflowSheet(Long productId, String sheetId, Date startDate, String material, Integer materialCount, Integer expectedProductCount, String requester) throws Exception {
         DatabaseAccessor dbAccessor = fetchDBAccessor();
 
-        dbAccessor.execute(ADD_WORKFLOW_SHEET_QUERY, new Object[] {productId, sheetId, startDate, material, materialCount, expectedProductCount});
+        dbAccessor.execute(ADD_WORKFLOW_SHEET_QUERY, new Object[] {productId, sheetId, startDate, material, materialCount, expectedProductCount, requester});
     }
 
     public static void completeWorkflowSheet(String sheetId, Date endDate, Integer finalCount) throws Exception {
@@ -355,6 +363,25 @@ public class DatabaseHelper {
         dbAccessor.execute(COMPLETE_WORKFLOW_SHEET_QUERY, new Object[] {endDate, finalCount, sheetId});
     }
 
+    public static List<WorkflowSheet> searchWorkflowSheets(Date startDate, Date endDate, String requester, String productName) throws Exception {
+        String query = SEARCH_WORKFLOW_SHEET_QUERY;
+        List<Object> params = Lists.newArrayList(startDate, endDate);
+        if (requester != null) {
+            query += REQUESTER_FILTER;
+            params.add(requester);
+        }
+        if (productName != null) {
+            query += PRODUCT_NAME_FILTER;
+            params.add(productName);
+        }
+        query += SEARCH_WORKFLOW_SHEET_ORDER_BY;
+
+        WorkflowSheetCallback callback = new WorkflowSheetCallback();
+        DatabaseAccessor dbAccessor = fetchDBAccessor();
+        dbAccessor.query(query, params.toArray(), callback);
+
+        return callback.getResult();
+    }
 
     // Workflow Details related queries
     public static void createWorkflowDetails(Long productId, String sheetId, Date startDate, Integer totalCount, Operation operation) throws Exception {
@@ -371,12 +398,20 @@ public class DatabaseHelper {
         return callback.getResult();
     }
 
-    public static WorkflowDetails gethWorkflowDetails(Long workflowDetailsId) throws Exception {
+    public static WorkflowDetails getWorkflowDetails(Long workflowDetailsId) throws Exception {
         DatabaseAccessor dbAccessor = fetchDBAccessor();
 
         WorkflowDetailsCallback callback = new WorkflowDetailsCallback();
         dbAccessor.query(GET_WORKFLOW_DETAILS_QUERY, new Object[] {workflowDetailsId}, callback);
         return callback.getResult().isEmpty() ? null : Iterables.getOnlyElement(callback.getResult());
+    }
+
+    public static List<WorkflowDetails> getWorkflowDetailsBySheetId(String sheetId) throws Exception {
+        DatabaseAccessor dbAccessor = fetchDBAccessor();
+
+        WorkflowDetailsCallback callback = new WorkflowDetailsCallback();
+        dbAccessor.query(GET_WORKFLOW_DETAILS_BY_SHEET_ID_QUERY, new Object[] {sheetId}, callback);
+        return callback.getResult();
     }
 
     public static void confirmWorkflowDetail(Long workflowDetailId, String owner, Date finishDate,

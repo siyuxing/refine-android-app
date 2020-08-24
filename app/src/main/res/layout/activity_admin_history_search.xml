@@ -67,9 +67,9 @@
                 android:theme="@style/TextLabel">
 
                 <customfonts.EditText_Roboto_Regular
+                    android:id="@+id/owner_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/owner"
                     android:textSize="15sp"
                     android:textColor="@color/trans_text_black"
                     android:focusable="false" />

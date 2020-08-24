@@ -49,5 +49,10 @@
     <string name="record_work">录入工作信息</string>
     <string name="create_date">创建日期</string>
     <string name="finish_date">完成日期</string>
+    <string name="expected_count">预期数量</string>
+    <string name="finish_count">完成数量</string>
+    <string name="requester">创建人</string>
+    <string name="work_details">工作详情</string>
+    <string name="is_finish">完成状态</string>
     <string name="zero">0</string>
 </resources>

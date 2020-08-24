@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="8dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:textSize="12sp"
@@ -24,79 +24,104 @@
         android:baselineAligned="false">
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:theme="@style/TextLabel"
-            android:layout_weight="2">
-
-            <customfonts.EditText_Roboto_Regular
-                android:id="@+id/work_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/sheet_id"
-                android:textSize="12sp"
-                android:autoSizeMinTextSize="9sp"
-                android:maxLines="2"
-                android:inputType="none"
-                android:focusable="false"
-                android:textColor="@color/trans_text_black"/>
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:theme="@style/TextLabel"
-            android:layout_weight="2">
-
-            <customfonts.EditText_Roboto_Regular
-                android:id="@+id/product"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/product_name"
-                android:maxLines="2"
-                android:autoSizeMinTextSize="9sp"
-                android:inputType="none"
-                android:focusable="false"
-                android:textSize="12sp"
-                android:textColor="@color/trans_text_black"/>
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:theme="@style/TextLabel"
-            android:layout_weight="2">
-
-            <customfonts.EditText_Roboto_Regular
-                android:id="@+id/start_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/create_date"
-                android:textSize="12sp"
-                android:autoSizeMinTextSize="9sp"
-                android:maxLines="2"
-                android:inputType="none"
-                android:focusable="false"
-                android:textColor="@color/trans_text_black"/>
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/TextLabel"
             android:layout_weight="1">
 
             <customfonts.EditText_Roboto_Regular
-                android:id="@+id/total_count"
+                android:id="@+id/operation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/count"
+                android:layout_weight="1"
+                android:hint="@string/operation"
+                android:textSize="12sp"
+                android:maxLines="1"
+                android:inputType="none"
+                android:focusable="false"
+                android:textColor="@color/trans_text_black"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/TextLabel"
+            android:layout_weight="1">
+
+            <customfonts.EditText_Roboto_Regular
+                android:id="@+id/owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/owner"
                 android:maxLines="1"
                 android:inputType="none"
                 android:focusable="false"
                 android:textSize="12sp"
+                android:textColor="@color/trans_text_black"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/TextLabel"
+            android:layout_weight="1">
+
+            <customfonts.EditText_Roboto_Regular
+                android:id="@+id/finished"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/is_finish"
+                android:textSize="12sp"
+                android:maxLines="1"
+                android:inputType="none"
+                android:focusable="false"
+                android:textColor="@color/trans_text_black"/>
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:theme="@style/TextLabel"
+        android:baselineAligned="false">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/TextLabel"
+            android:layout_weight="1">
+
+            <customfonts.EditText_Roboto_Regular
+                android:id="@+id/success_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/success_count"
+                android:maxLines="1"
+                android:inputType="none"
+                android:focusable="false"
+                android:textSize="12sp"
+                android:textColor="@color/trans_text_black"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/TextLabel"
+            android:layout_weight="1">
+
+            <customfonts.EditText_Roboto_Regular
+                android:id="@+id/fail_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/fail_count"
+                android:textSize="12sp"
+                android:maxLines="1"
+                android:inputType="none"
+                android:focusable="false"
                 android:textColor="@color/trans_text_black"/>
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>

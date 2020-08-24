@@ -48,6 +48,9 @@ public class OwnerSummarySearchActivity extends CommonActivity {
         startDateET = findViewById(R.id.start_date);
         endDateET = findViewById(R.id.end_date);
 
+        EditText ownerTitleET = findViewById(R.id.owner_title);
+        ownerTitleET.setHint("负责人");
+
         ownerSpinner = findViewById(R.id.owner);
         productSpinner = findViewById(R.id.product);
 
