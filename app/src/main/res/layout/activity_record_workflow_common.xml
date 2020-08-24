@@ -38,7 +38,7 @@
                     android:inputType="none"
                     android:focusable="false"
                     android:textSize="15sp"
-                    android:textColor="@color/trans_text_black"/>
+                    android:textColor="@color/colorSuccess"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -56,7 +56,7 @@
                     android:inputType="none"
                     android:focusable="false"
                     android:textSize="15sp"
-                    android:textColor="@color/trans_text_black"/>
+                    android:textColor="@color/colorSuccess"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -74,7 +74,7 @@
                     android:inputType="none"
                     android:focusable="false"
                     android:textSize="15sp"
-                    android:textColor="@color/trans_text_black" />
+                    android:textColor="@color/colorSuccess" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -92,7 +92,7 @@
                     android:inputType="none"
                     android:focusable="false"
                     android:textSize="15sp"
-                    android:textColor="@color/trans_text_black"/>
+                    android:textColor="@color/colorSuccess"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout

@@ -43,6 +43,7 @@ public class AddPickupHistoryActivity extends CommonActivity {
 
         productSpinner = findViewById(R.id.product_list);
 
+        updateDate();
         dateSetListener = (view, year, monthOfYear, dayOfMonth) -> {
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);

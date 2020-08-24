@@ -90,23 +90,23 @@ public class ProductStockDetailsActivity extends CommonActivity {
         }
         pouredET.setFocusable(true);
         pouredET.setFocusableInTouchMode(true);
-        pouredET.setTextColor(getResources().getColor(R.color.colorSuccess));
+        pouredET.setTextColor(getResources().getColor(R.color.trans_text_black));
 
         hydroET.setFocusable(true);
         hydroET.setFocusableInTouchMode(true);
-        hydroET.setTextColor(getResources().getColor(R.color.colorSuccess));
+        hydroET.setTextColor(getResources().getColor(R.color.trans_text_black));
 
         driedET.setFocusable(true);
         driedET.setFocusableInTouchMode(true);
-        driedET.setTextColor(getResources().getColor(R.color.colorSuccess));
+        driedET.setTextColor(getResources().getColor(R.color.trans_text_black));
 
         cutET.setFocusable(true);
         cutET.setFocusableInTouchMode(true);
-        cutET.setTextColor(getResources().getColor(R.color.colorSuccess));
+        cutET.setTextColor(getResources().getColor(R.color.trans_text_black));
 
         finishedET.setFocusable(true);
         finishedET.setFocusableInTouchMode(true);
-        finishedET.setTextColor(getResources().getColor(R.color.colorSuccess));
+        finishedET.setTextColor(getResources().getColor(R.color.trans_text_black));
     }
 
     public void dismiss(View v) {
@@ -172,23 +172,23 @@ public class ProductStockDetailsActivity extends CommonActivity {
 
         pouredET.setFocusable(false);
         pouredET.setFocusableInTouchMode(false);
-        pouredET.setTextColor(getResources().getColor(R.color.trans_text_black));
+        pouredET.setTextColor(getResources().getColor(R.color.colorSuccess));
 
         hydroET.setFocusable(false);
         hydroET.setFocusableInTouchMode(false);
-        hydroET.setTextColor(getResources().getColor(R.color.trans_text_black));
+        hydroET.setTextColor(getResources().getColor(R.color.colorSuccess));
 
         driedET.setFocusable(false);
         driedET.setFocusableInTouchMode(false);
-        driedET.setTextColor(getResources().getColor(R.color.trans_text_black));
+        driedET.setTextColor(getResources().getColor(R.color.colorSuccess));
 
         cutET.setFocusable(false);
         cutET.setFocusableInTouchMode(false);
-        cutET.setTextColor(getResources().getColor(R.color.trans_text_black));
+        cutET.setTextColor(getResources().getColor(R.color.colorSuccess));
 
         finishedET.setFocusable(false);
         finishedET.setFocusableInTouchMode(false);
-        finishedET.setTextColor(getResources().getColor(R.color.trans_text_black));
+        finishedET.setTextColor(getResources().getColor(R.color.colorSuccess));
     }
 
     private void failActivityOnError() {

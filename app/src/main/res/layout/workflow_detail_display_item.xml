@@ -39,7 +39,7 @@
                 android:maxLines="1"
                 android:inputType="none"
                 android:focusable="false"
-                android:textColor="@color/trans_text_black"/>
+                android:textColor="@color/colorSuccess"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -57,7 +57,7 @@
                 android:inputType="none"
                 android:focusable="false"
                 android:textSize="12sp"
-                android:textColor="@color/trans_text_black"/>
+                android:textColor="@color/colorSuccess"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -76,7 +76,7 @@
                 android:maxLines="1"
                 android:inputType="none"
                 android:focusable="false"
-                android:textColor="@color/trans_text_black"/>
+                android:textColor="@color/colorSuccess"/>
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
@@ -103,7 +103,7 @@
                 android:inputType="none"
                 android:focusable="false"
                 android:textSize="12sp"
-                android:textColor="@color/trans_text_black"/>
+                android:textColor="@color/colorSuccess"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -122,7 +122,7 @@
                 android:maxLines="1"
                 android:inputType="none"
                 android:focusable="false"
-                android:textColor="@color/trans_text_black"/>
+                android:textColor="@color/colorSuccess"/>
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 </LinearLayout>

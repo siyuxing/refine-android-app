@@ -38,26 +38,16 @@ public class WorkflowSheetAdapter extends RecyclerView.Adapter<WorkflowSheetAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        if (!workflowSheets.isEmpty()) {
-            if (position == 0) {
-                holder.setHeader();
-            } else {
-                holder.setWorkflowSheet(workflowSheets.get(position - 1));
-            }
-        }
+        holder.setWorkflowSheet(workflowSheets.get(position ));
     }
 
     @Override
     public int getItemCount() {
-        return workflowSheets.isEmpty() ? 0 : workflowSheets.size() + 1;
+        return workflowSheets.size();
     }
 
     public WorkflowSheet getSelected() {
-        if (checkedPosition > 0) {
-            return workflowSheets.get(checkedPosition - 1);
-        } else {
-            return null;
-        }
+        return workflowSheets.get(checkedPosition);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -86,9 +76,7 @@ public class WorkflowSheetAdapter extends RecyclerView.Adapter<WorkflowSheetAdap
                 checkedPosition = -1;
             } else {
                 checkedPosition = getAdapterPosition();
-                if (checkedPosition > 0) {
-                    v.setSelected(true);
-                }
+                v.setSelected(true);
                 for (int i = 0; i < parent.getChildCount(); i++) {
                     if (i != checkedPosition) {
                         parent.getChildAt(i).setSelected(false);
@@ -107,23 +95,6 @@ public class WorkflowSheetAdapter extends RecyclerView.Adapter<WorkflowSheetAdap
             requestCount.setText(String.valueOf(workflowSheet.getNumOfRequested()));
             finishCount.setText(workflowSheet.getNumOfFinal() != null ?
                                 String.valueOf(workflowSheet.getNumOfFinal()) : "未完成");
-        }
-
-        private void setHeader() {
-            workId.setText("任务单号");
-            workId.setTextColor(context.getResources().getColor(R.color.colorPrimary));
-
-            product.setText("产品");
-            product.setTextColor(context.getResources().getColor(R.color.colorPrimary));
-
-            startDate.setText("创建日期");
-            startDate.setTextColor(context.getResources().getColor(R.color.colorPrimary));
-
-            requestCount.setText("预期");
-            requestCount.setTextColor(context.getResources().getColor(R.color.colorPrimary));
-
-            finishCount.setText("完成");
-            finishCount.setTextColor(context.getResources().getColor(R.color.colorPrimary));
         }
     }
 }

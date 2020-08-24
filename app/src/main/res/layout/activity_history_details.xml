@@ -37,7 +37,7 @@
                     android:inputType="none"
                     android:focusable="false"
                     android:textSize="15sp"
-                    android:textColor="@color/trans_text_black"/>
+                    android:textColor="@color/colorSuccess"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -55,7 +55,7 @@
                     android:inputType="none"
                     android:focusable="false"
                     android:textSize="15sp"
-                    android:textColor="@color/trans_text_black"/>
+                    android:textColor="@color/colorSuccess"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -73,7 +73,7 @@
                     android:inputType="none"
                     android:focusable="false"
                     android:textSize="15sp"
-                    android:textColor="@color/trans_text_black"/>
+                    android:textColor="@color/colorSuccess"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -90,7 +90,7 @@
                     android:maxLines="1"
                     android:clickable="true"
                     android:textSize="15sp"
-                    android:textColor="@color/colorSuccess"
+                    android:textColor="@color/trans_text_black"
                     android:focusable="true" />
 
             </android.support.design.widget.TextInputLayout>
@@ -109,7 +109,7 @@
                     android:maxLines="1"
                     android:inputType="numberDecimal"
                     android:textSize="15sp"
-                    android:textColor="@color/colorSuccess"/>
+                    android:textColor="@color/trans_text_black"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -127,7 +127,7 @@
                     android:maxLines="1"
                     android:inputType="numberDecimal"
                     android:textSize="15sp"
-                    android:textColor="@color/colorSuccess"/>
+                    android:textColor="@color/trans_text_black"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -143,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/note"
                     android:textSize="15sp"
-                    android:textColor="@color/colorSuccess"/>
+                    android:textColor="@color/trans_text_black"/>
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>

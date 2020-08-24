@@ -68,6 +68,7 @@ public class RecordWorkflowDetailsCommon extends CommonActivity {
         failCountET = findViewById(R.id.fail_count);
         noteET = findViewById(R.id.note);
 
+        updateDate();
         dateSetListener = (view, year, monthOfYear, dayOfMonth) -> {
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);

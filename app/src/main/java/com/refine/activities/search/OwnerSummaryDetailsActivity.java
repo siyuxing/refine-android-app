@@ -51,28 +51,6 @@ public class OwnerSummaryDetailsActivity extends CommonActivity {
         loadSummary();
     }
 
-    public void checkDetails(View v) {
-        if (ownerSummaryAdapter.getSelected() == null) {
-            errorPopUp("请选择工作详情");
-        } else {
-            Thread background = new Thread() {
-                public void run() {
-                    OwnerSummary ownerSummary = ownerSummaryAdapter.getSelected();
-
-                    Intent intent = new Intent(OwnerSummaryDetailsActivity.this, JobHistoryListActivity.class);
-                    intent.putExtra(ActivityConstants.START_DATE_EXTRA, startDateString);
-                    intent.putExtra(ActivityConstants.END_DATE_EXTRA, endDateString);
-                    intent.putExtra(ActivityConstants.OWNER_NAME_EXTRA, ownerSummary.getOwner());
-                    intent.putExtra(ActivityConstants.PRODUCT_NAME_EXTRA, ownerSummary.getProductName());
-                    intent.putExtra(ActivityConstants.OPERATION_EXTRA, ownerSummary.getOperation().getOperationCode());
-                    startActivity(intent);
-                }
-            };
-            // start thread
-            background.start();
-        }
-    }
-
     private void loadSummary() {
         // Ignore NetworkOnMainThreadException in this activity
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
