@@ -1,12 +1,15 @@
 package com.refine.activities.product.record;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.util.Calendar;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import com.mysql.jdbc.StringUtils;
 import com.refine.R;
 import com.refine.account.AccountProfileLocator;
 import com.refine.activities.CommonActivity;
@@ -40,7 +43,7 @@ public class RecordWorkflowDetailsCommon extends CommonActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_workflow_common);
 
-        setTitle(String.format("录入%s任务信息", operation.name()));
+        setTitle(String.format("%s任务详情", operation.name()));
 
         Bundle extras = getIntent().getExtras();
 
@@ -85,9 +88,76 @@ public class RecordWorkflowDetailsCommon extends CommonActivity {
         productET.setText(workflowDetails.getProductName());
         createDateET.setText(getDateFormat().format(workflowDetails.getStartDate()));
         productCountET.setText(String.valueOf(workflowDetails.getNumOfTotal()));
+
+        if (workflowDetails.getFinishDate() != null) {
+            finishDateET.setText(getDateFormat().format(workflowDetails.getFinishDate()));
+        }
+        if (workflowDetails.getNumOfSuccess() != null) {
+            successCountET.setText(String.valueOf(workflowDetails.getNumOfSuccess()));
+        }
+        if (workflowDetails.getNumOfFailure() != null) {
+            failCountET.setText(String.valueOf(workflowDetails.getNumOfFailure()));
+        }
+        noteET.setText(workflowDetails.getAdditionNote());
     }
 
-    public void addHistory(View v) {
+    public void trySave(View v) {
+        Button button = findViewById(R.id.save);
+        button.setEnabled(false);
+        try {
+            save(v);
+        } finally {
+            button.setEnabled(true);
+        }
+    }
+
+    private void save(View v) {
+        final String note = noteET.getText().toString();
+
+        final Date finishDate;
+        final Integer successCount, failCount;
+        try {
+            successCount = StringUtils.isNullOrEmpty(successCountET.getText().toString()) ? null : Integer.parseInt(successCountET.getText().toString());
+            failCount = StringUtils.isNullOrEmpty(failCountET.getText().toString()) ? null : Integer.parseInt(failCountET.getText().toString());
+            finishDate = StringUtils.isNullOrEmpty(finishDateET.getText().toString()) ? null : Date.valueOf(finishDateET.getText().toString());
+        } catch (Exception e) {
+            errorPopUp("产品数量信息或完成日期无效！");
+            return;
+        }
+
+        Thread background = new Thread() {
+            public void run() {
+                try {
+                    DatabaseHelper.updateWorkflowDetail(workflowDetails.getId(), AccountProfileLocator.getProfile().getCurrentUser(), finishDate,
+                                                        successCount, failCount, note);
+
+                    successPopUp("保存工作记录成功！");
+
+                    sleep(1000);
+                    finish();
+                } catch (InsuffcientProductException e) {
+                    errorPopUp(e.getMessage());
+                } catch (Exception e) {
+                    errorPopUp("保存工作记录失败！");
+                }
+            }
+        };
+
+        // start thread
+        background.start();
+    }
+
+    public void tryAddHistory(View v) {
+        Button button = findViewById(R.id.submit);
+        button.setEnabled(false);
+        try {
+            addHistory(v);
+        } finally {
+            button.setEnabled(true);
+        }
+    }
+
+    private void addHistory(View v) {
         final String note = noteET.getText().toString();
         final String productName = workflowDetails.getProductName();
 
@@ -111,22 +181,25 @@ public class RecordWorkflowDetailsCommon extends CommonActivity {
             public void run() {
                 try {
                     Long productId = DatabaseHelper.getProductId(productName);
+                    Connection conn = DatabaseHelper.startTransaction();
                     if (operation.getFromStatus() != null) {
-                        DatabaseHelper.mutateProductCountInStock(productId, operation.getFromStatus().getStatusCode(), -(successCount + failCount));
+                        DatabaseHelper.mutateProductCountInStock(productId, operation.getFromStatus().getStatusCode(), -(successCount + failCount), conn);
                     }
                     if (operation.getToStatus() != null) {
-                        DatabaseHelper.mutateProductCountInStock(productId, operation.getToStatus().getStatusCode(), successCount);
+                        DatabaseHelper.mutateProductCountInStock(productId, operation.getToStatus().getStatusCode(), successCount, conn);
                     }
                     DatabaseHelper.confirmWorkflowDetail(workflowDetails.getId(), AccountProfileLocator.getProfile().getCurrentUser(), finishDate,
-                                                         successCount, failCount, note);
+                                                         successCount, failCount, note, conn);
 
                     if (nextOperation != null) {
-                        DatabaseHelper.createWorkflowDetails(workflowDetails.getProductId(), workflowDetails.getWorkflowId(), finishDate, successCount, nextOperation);
+                        DatabaseHelper.createWorkflowDetails(workflowDetails.getProductId(), workflowDetails.getWorkflowId(), finishDate, successCount, nextOperation, conn);
                     } else {
-                        DatabaseHelper.completeWorkflowSheet(workflowDetails.getWorkflowId(), finishDate, successCount);
+                        DatabaseHelper.completeWorkflowSheet(workflowDetails.getWorkflowId(), finishDate, successCount, conn);
                     }
 
-                    successPopUp("添加记录成功！");
+                    DatabaseHelper.commitTransaction(conn);
+
+                    successPopUp("提交工作记录成功！");
 
                     sleep(1000);
 
@@ -134,7 +207,7 @@ public class RecordWorkflowDetailsCommon extends CommonActivity {
                 } catch (InsuffcientProductException e) {
                     errorPopUp(e.getMessage());
                 } catch (Exception e) {
-                    errorPopUp("添加记录失败！");
+                    errorPopUp("提交工作记录失败！");
                 }
             }
         };

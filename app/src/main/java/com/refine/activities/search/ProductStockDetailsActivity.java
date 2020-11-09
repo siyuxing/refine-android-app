@@ -7,6 +7,7 @@ import java.util.Map;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import com.refine.R;
 import com.refine.account.AccountProfileLocator;
@@ -60,7 +61,7 @@ public class ProductStockDetailsActivity extends CommonActivity {
                 for (ProductStock stock : productStocks) {
                     productStockMap.put(stock.getStatus(), stock);
                     switch (stock.getStatus()) {
-                        case 待醛化:
+                        case 待煮滤:
                             pouredET.setText(String.valueOf(stock.getNumOfProduct()));
                             break;
                         case 待干燥:
@@ -83,7 +84,17 @@ public class ProductStockDetailsActivity extends CommonActivity {
         }
     }
 
-    public void updateStock(View v) {
+    public void tryUpdateStock(View v) {
+        Button button = findViewById(R.id.update_stock);
+        button.setEnabled(false);
+        try {
+            updateStock(v);
+        } finally {
+            button.setEnabled(true);
+        }
+    }
+
+    private void updateStock(View v) {
         if (!AccountProfileLocator.getProfile().isAdminUser()) {
             errorPopUp("非管理员账号，仅有管理员可以校正库存信息。");
             return;
@@ -109,7 +120,17 @@ public class ProductStockDetailsActivity extends CommonActivity {
         finishedET.setTextColor(getResources().getColor(R.color.trans_text_black));
     }
 
-    public void dismiss(View v) {
+    public void tryDismiss(View v) {
+        Button button = findViewById(R.id.dismiss);
+        button.setEnabled(false);
+        try {
+            dismiss(v);
+        } finally {
+            button.setEnabled(true);
+        }
+    }
+
+    private void dismiss(View v) {
         final long pouredCount, hydroCount, driedCount, cutCount, finishedCount;
         try {
             pouredCount = Long.parseLong(pouredET.getText().toString());
@@ -126,10 +147,10 @@ public class ProductStockDetailsActivity extends CommonActivity {
             public void run() {
                 try {
                     Long productId = DatabaseHelper.getProductId(productName);
-                    long oldPouredCount = productStockMap.containsKey(ProductStatus.待醛化) ?
-                                          productStockMap.get(ProductStatus.待醛化).getNumOfProduct() : 0;
+                    long oldPouredCount = productStockMap.containsKey(ProductStatus.待煮滤) ?
+                                          productStockMap.get(ProductStatus.待煮滤).getNumOfProduct() : 0;
                     if (oldPouredCount != pouredCount) {
-                        DatabaseHelper.updateProductCountInStock(productId, ProductStatus.待醛化.getStatusCode(), pouredCount);
+                        DatabaseHelper.updateProductCountInStock(productId, ProductStatus.待煮滤.getStatusCode(), pouredCount);
                     }
 
                     long oldHydroCount = productStockMap.containsKey(ProductStatus.待干燥) ?

@@ -1,5 +1,6 @@
 package com.refine.activities.product;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import com.google.common.collect.Lists;
@@ -74,7 +76,17 @@ public class AddPickupHistoryActivity extends CommonActivity {
         }
     }
 
-    public void addHistory(View v) {
+    public void tryAddHistory(View v) {
+        Button button = findViewById(R.id.button);
+        button.setEnabled(false);
+        try {
+            addHistory(v);
+        } finally {
+            button.setEnabled(true);
+        }
+    }
+
+    private void addHistory(View v) {
         if (ActivityConstants.SPINNER_PLACE_HOLDER_OPTION.equals(allProducts.get(productSpinner.getSelectedItemPosition()))) {
             errorPopUp("请选择产品");
         } else {
@@ -95,10 +107,11 @@ public class AddPickupHistoryActivity extends CommonActivity {
                 public void run() {
                     try {
                         Long productId = DatabaseHelper.getProductId(productName);
-                        DatabaseHelper.mutateProductCountInStock(productId, ProductStatus.成品.getStatusCode(), -count);
+                        Connection conn = DatabaseHelper.startTransaction();
+                        DatabaseHelper.mutateProductCountInStock(productId, ProductStatus.成品.getStatusCode(), -count, conn);
                         DatabaseHelper.addDischargeHistory(
-                                productId, date, AccountProfileLocator.getProfile().getCurrentUser(), count, note);
-
+                                productId, date, AccountProfileLocator.getProfile().getCurrentUser(), count, note, conn);
+                        DatabaseHelper.commitTransaction(conn);
                         successPopUp("添加出库记录成功！");
 
                         sleep(1000);

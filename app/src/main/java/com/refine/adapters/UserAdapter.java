@@ -49,11 +49,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     }
 
     public User getSelected() {
-        if (checkedPosition >= 0) {
-            return users.get(checkedPosition);
-        } else {
-            return null;
-        }
+        return checkedPosition >= 0 ? users.get(checkedPosition) : null;
     }
 
     public void clearSelected() {

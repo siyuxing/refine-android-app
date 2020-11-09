@@ -90,21 +90,6 @@
                 android:theme="@style/TextLabel">
 
                 <customfonts.EditText_Roboto_Regular
-                    android:id="@+id/material"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/material"
-                    android:textSize="15sp"
-                    android:textColor="@color/trans_text_black"/>
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:theme="@style/TextLabel">
-
-                <customfonts.EditText_Roboto_Regular
                     android:id="@+id/material_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -152,14 +137,14 @@
 
         <Button
             android:id="@+id/create_button"
-            android:onClick="create"
+            android:onClick="tryCreate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/create"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:gravity="center"
-            android:background="@drawable/button_background"
+            android:background="@drawable/button_selector"
             android:textSize="15sp" />
     </LinearLayout>
 

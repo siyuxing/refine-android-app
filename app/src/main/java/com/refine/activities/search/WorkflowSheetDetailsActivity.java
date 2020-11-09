@@ -78,8 +78,8 @@ public class WorkflowSheetDetailsActivity extends CommonActivity {
     }
 
     private void loadWorkflowSheet() throws Exception {
-        EditText sheetIdET = findViewById(R.id.sheet_id);
-        sheetIdET.setText(workflowSheet.getSheetId());
+        setTitle(workflowSheet.getSheetId());
+
         EditText productET = findViewById(R.id.product);
         productET.setText(workflowSheet.getProductName());
         EditText requesterET = findViewById(R.id.requester);
@@ -92,15 +92,13 @@ public class WorkflowSheetDetailsActivity extends CommonActivity {
         EditText startDateET = findViewById(R.id.start_date);
         startDateET.setText(workflowSheet.getStartDate() != null ? getDateFormat().format(workflowSheet.getStartDate()) : ActivityConstants.UNKNOWN_FIELD_VALUE);
         EditText finishDateET = findViewById(R.id.finish_date);
-        finishDateET.setText(workflowSheet.getFinishDate() != null ? getDateFormat().format(workflowSheet.getFinishDate()) : ActivityConstants.UNKNOWN_FIELD_VALUE);
-        EditText materialET = findViewById(R.id.material);
-        materialET.setText(workflowSheet.getMaterial());
+        finishDateET.setText(workflowSheet.getFinishDate() != null ? getDateFormat().format(workflowSheet.getFinishDate()) : ActivityConstants.UNFINISHED_FIELD_VALUE);
         EditText materialCountET = findViewById(R.id.material_count);
         materialCountET.setText(workflowSheet.getNumOfMaterial() != null ? String.valueOf(workflowSheet.getNumOfMaterial()) : ActivityConstants.UNKNOWN_FIELD_VALUE);
         EditText expectedCountET = findViewById(R.id.expected_count);
         expectedCountET.setText(workflowSheet.getNumOfRequested() != null ? String.valueOf(workflowSheet.getNumOfRequested()) : ActivityConstants.UNKNOWN_FIELD_VALUE);
         EditText finishCountET = findViewById(R.id.finish_count);
-        finishCountET.setText(workflowSheet.getNumOfFinal() != null ? String.valueOf(workflowSheet.getNumOfFinal()) : ActivityConstants.UNKNOWN_FIELD_VALUE);
+        finishCountET.setText(workflowSheet.getNumOfFinal() != null ? String.valueOf(workflowSheet.getNumOfFinal()) : ActivityConstants.UNFINISHED_FIELD_VALUE);
     }
 
     private void loadWorkflowDetails() throws Exception {

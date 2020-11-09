@@ -4,13 +4,11 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.EditText;
 import com.refine.R;
 import com.refine.activities.CommonActivity;
@@ -32,7 +30,7 @@ public class OwnerSummaryDetailsActivity extends CommonActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_owner_summary_details);
+        setContentView(R.layout.unused_activity_owner_summary_details);
 
         setTitle("负责人汇总信息详情");
 

@@ -1,5 +1,6 @@
 package com.refine.activities.product;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import com.google.common.collect.Lists;
@@ -28,7 +30,6 @@ public class CreateWorkflowSheetActivity extends CommonActivity {
 
     private EditText dateET;
     private PrefixEditTest sheetIdET;
-    private EditText materialET;
     private EditText materialCountET;
     private EditText productCountET;
 
@@ -48,7 +49,6 @@ public class CreateWorkflowSheetActivity extends CommonActivity {
 
         dateET = findViewById(R.id.history_date);
         sheetIdET = findViewById(R.id.sheet_id);
-        materialET = findViewById(R.id.material);
         materialCountET = findViewById(R.id.material_count);
         productCountET = findViewById(R.id.product_count);
 
@@ -87,12 +87,21 @@ public class CreateWorkflowSheetActivity extends CommonActivity {
         }
     }
 
-    public void create(View v) {
+    public void tryCreate(View v) {
+        Button button = findViewById(R.id.create_button);
+        button.setEnabled(false);
+        try {
+            create(v);
+        } finally {
+            button.setEnabled(true);
+        }
+    }
+
+    private void create(View v) {
         if (ActivityConstants.SPINNER_PLACE_HOLDER_OPTION.equals(allProducts.get(productSpinner.getSelectedItemPosition()))) {
             errorPopUp("请选择产品");
         } else {
             final String sheetId = sheetIdET.getText().toString();
-            final String material = materialET.getText().toString();
             final String productName = allProducts.get(productSpinner.getSelectedItemPosition());
 
             final Date date;
@@ -106,8 +115,8 @@ public class CreateWorkflowSheetActivity extends CommonActivity {
                 return;
             }
 
-            if (StringUtils.isNullOrEmpty(sheetId) || StringUtils.isNullOrEmpty(material)) {
-                errorPopUp("任务单号或原材料信息无效！");
+            if (StringUtils.isNullOrEmpty(sheetId) || sheetId.length() <= WORKFLOW_SHEET_ID_DATE_FORMAT.length()) {
+                errorPopUp("任务单号无效！");
                 return;
             }
 
@@ -115,9 +124,13 @@ public class CreateWorkflowSheetActivity extends CommonActivity {
                 public void run() {
                     try {
                         Long productId = DatabaseHelper.getProductId(productName);
-                        DatabaseHelper.addWorkflowSheet(productId, sheetId, date, material, materialCount, productCount,
-                                                        AccountProfileLocator.getProfile().getCurrentUser());
-                        DatabaseHelper.createWorkflowDetails(productId, sheetId, date, productCount, Operation.浇注);
+
+                        Connection conn = DatabaseHelper.startTransaction();
+                        DatabaseHelper.addWorkflowSheet(productId, sheetId, date, "material", materialCount, productCount,
+                                                        AccountProfileLocator.getProfile().getCurrentUser(), conn);
+                        DatabaseHelper.createWorkflowDetails(productId, sheetId, date, productCount, Operation.配料浸泡, conn);
+
+                        DatabaseHelper.commitTransaction(conn);
 
                         successPopUp("添加记录成功！");
 

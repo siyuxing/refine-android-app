@@ -6,12 +6,13 @@ import java.util.List;
 
 public enum Operation {
     创建任务单("add_workflow", 1, null, null),
-    浇注("jiaozhu", 1, null, ProductStatus.待醛化),
-    醛化("quanhua", 2, ProductStatus.待醛化, ProductStatus.待干燥),
-    干燥("dry", 3, ProductStatus.待干燥, ProductStatus.待切割),
-    干加工切割("cut", 4, ProductStatus.待切割, ProductStatus.待包装入库),
-    包装入库("pack", 5, ProductStatus.待包装入库, ProductStatus.成品),
-    出库("stock", 6, ProductStatus.成品, null);
+    配料浸泡("jiaozhu", 1, null, ProductStatus.待煮滤),
+    煮滤("zhulv", 2, ProductStatus.待煮滤, ProductStatus.待湿加工),
+    湿加工("wet", 3, ProductStatus.待湿加工, ProductStatus.待干燥),
+    干燥硬化("dry", 4, ProductStatus.待干燥, ProductStatus.待切割),
+    干加工切割("cut", 5, ProductStatus.待切割, ProductStatus.待包装入库),
+    包装入库("pack", 6, ProductStatus.待包装入库, ProductStatus.成品),
+    出库("stock", 7, ProductStatus.成品, null);
 
     public static final String ADMIN_PERMISSION_NAME = "管理员";
 

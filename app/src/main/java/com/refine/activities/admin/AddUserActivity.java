@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import com.google.common.collect.Lists;
 import com.mysql.jdbc.StringUtils;
@@ -63,6 +64,16 @@ public class AddUserActivity extends CommonActivity {
         } catch (Exception e) {
             errorPopUp("获取信息失败！");
             allUserNames = new ArrayList<>();
+        }
+    }
+
+    public void tryAddUser(View v) {
+        Button button = findViewById(R.id.button);
+        button.setEnabled(false);
+        try {
+            addUser(v);
+        } finally {
+            button.setEnabled(true);
         }
     }
 

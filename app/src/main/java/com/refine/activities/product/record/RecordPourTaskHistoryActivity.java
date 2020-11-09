@@ -5,6 +5,6 @@ import com.refine.model.Operation;
 public class RecordPourTaskHistoryActivity extends RecordWorkflowDetailsCommon {
 
     public RecordPourTaskHistoryActivity() {
-        super(Operation.浇注, Operation.醛化);
+        super(Operation.煮滤, Operation.湿加工);
     }
 }

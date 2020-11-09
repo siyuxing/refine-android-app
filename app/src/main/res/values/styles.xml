@@ -12,6 +12,8 @@
     <style name="TextLabel" parent="TextAppearance.AppCompat">
         <!-- Hint color and label color in FALSE state -->
         <item name="android:textColorHint">@color/text_gray</item>
+        <item name="android:textColorHighlight">@color/colorPrimaryDark</item>
+        <item name="android:textColorLink">@color/tab_select_txt</item>
         <item name="android:textSize">15sp</item>
         <item name="android:inputType">text</item>
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->

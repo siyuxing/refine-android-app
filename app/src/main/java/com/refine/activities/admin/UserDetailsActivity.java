@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import com.google.common.collect.Lists;
 import com.mysql.jdbc.StringUtils;
@@ -78,7 +79,17 @@ public class UserDetailsActivity extends CommonActivity {
         }
     }
 
-    public void modifyUser(View v) {
+    public void tryModifyUser(View v) {
+        Button button = findViewById(R.id.button);
+        button.setEnabled(false);
+        try {
+            modifyUser(v);
+        } finally {
+            button.setEnabled(true);
+        }
+    }
+
+    private void modifyUser(View v) {
         final String displayName = displayNameET.getText().toString();
         final String password = passwordET.getText().toString();
 

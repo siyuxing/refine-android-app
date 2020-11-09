@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import com.refine.R;
 import com.refine.activities.CommonActivity;
 import com.refine.adapters.SingleSelectItemAdapter;
@@ -55,7 +56,17 @@ public class ProductStockSearchActivity extends CommonActivity {
         }
     }
 
-    public void search(View v) {
+    public void trySearch(View v) {
+        Button button = findViewById(R.id.search);
+        button.setEnabled(false);
+        try {
+            search(v);
+        } finally {
+            button.setEnabled(true);
+        }
+    }
+
+    private void search(View v) {
         if (adapter.getSelected() == null) {
             errorPopUp("请选择产品");
         } else {

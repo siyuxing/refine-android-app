@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import com.refine.R;
 import com.refine.activities.CommonActivity;
 import com.refine.activities.product.record.RecordWorkflowDetailsCommon;
@@ -74,7 +75,17 @@ public class CheckPendingTasksCommon extends CommonActivity {
         }
     }
 
-    public void record(View v) {
+    public void tryRecord(View v) {
+        Button button = findViewById(R.id.record);
+        button.setEnabled(false);
+        try {
+            record(v);
+        } finally {
+            button.setEnabled(true);
+        }
+    }
+
+    private void record(View v) {
         if (workflowDetailsAdapter.getSelected() == null) {
             errorPopUp("请选择任务");
         } else {

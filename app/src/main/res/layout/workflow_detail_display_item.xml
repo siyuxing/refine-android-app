@@ -6,8 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
     android:textSize="12sp"
     android:textStyle="bold"
     android:textColor="@color/trans_text_black"
@@ -15,67 +13,108 @@
     android:background="@drawable/item_selector" >
 
     <LinearLayout
+        android:id="@+id/operation_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:orientation="horizontal"
         android:layout_gravity="bottom"
-        android:theme="@style/TextLabel"
+        android:background="@color/colorSuccess"
+        android:baselineAligned="false">
+
+        <TextView
+            android:id="@+id/operation"
+            android:paddingTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/operation"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:maxLines="2"
+            android:inputType="none"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
+            android:textColor="@color/view_gray"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
         android:baselineAligned="false">
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:theme="@style/TextLabel"
             android:layout_weight="1">
 
-            <customfonts.EditText_Roboto_Regular
-                android:id="@+id/operation"
+            <TextView
+                android:id="@+id/owner_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/operation"
-                android:textSize="12sp"
-                android:maxLines="1"
+                android:text="@string/owner"
+                android:textSize="14sp"
+                android:maxLines="2"
                 android:inputType="none"
                 android:focusable="false"
-                android:textColor="@color/colorSuccess"/>
-        </android.support.design.widget.TextInputLayout>
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textColor="@color/text_gray"/>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/TextLabel"
-            android:layout_weight="1">
-
-            <customfonts.EditText_Roboto_Regular
+            <TextView
                 android:id="@+id/owner"
+                android:paddingTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/owner"
-                android:maxLines="1"
+                android:text="@string/owner"
+                android:textSize="12sp"
+                android:maxLines="2"
                 android:inputType="none"
                 android:focusable="false"
-                android:textSize="12sp"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
                 android:textColor="@color/colorSuccess"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:theme="@style/TextLabel"
             android:layout_weight="1">
 
-            <customfonts.EditText_Roboto_Regular
-                android:id="@+id/finished"
+            <TextView
+                android:id="@+id/finished_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/is_finish"
-                android:textSize="12sp"
-                android:maxLines="1"
+                android:text="@string/is_finish"
+                android:textSize="14sp"
+                android:maxLines="2"
                 android:inputType="none"
                 android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textColor="@color/text_gray"/>
+
+            <TextView
+                android:id="@+id/finished"
+                android:paddingTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/is_finish"
+                android:textSize="12sp"
+                android:maxLines="2"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
                 android:textColor="@color/colorSuccess"/>
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
@@ -83,46 +122,120 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal"
         android:layout_gravity="bottom"
         android:theme="@style/TextLabel"
         android:baselineAligned="false">
 
+
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:theme="@style/TextLabel"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/operation_date_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/submit_date"
+                android:textSize="14sp"
+                android:maxLines="2"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textColor="@color/text_gray"/>
+
+            <TextView
+                android:id="@+id/submit_date"
+                android:paddingTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/submit_date"
+                android:textSize="12sp"
+                android:maxLines="2"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textColor="@color/colorSuccess"/>
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:theme="@style/TextLabel"
             android:layout_weight="1">
 
-            <customfonts.EditText_Roboto_Regular
-                android:id="@+id/success_count"
+            <TextView
+                android:id="@+id/success_count_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/success_count"
-                android:maxLines="1"
+                android:text="@string/success_count"
+                android:textSize="14sp"
+                android:maxLines="2"
                 android:inputType="none"
                 android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textColor="@color/text_gray"/>
+
+            <TextView
+                android:id="@+id/success_count"
+                android:paddingTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/success_count"
                 android:textSize="12sp"
+                android:maxLines="2"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
                 android:textColor="@color/colorSuccess"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:theme="@style/TextLabel"
             android:layout_weight="1">
 
-            <customfonts.EditText_Roboto_Regular
-                android:id="@+id/fail_count"
+            <TextView
+                android:id="@+id/fail_count_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/fail_count"
-                android:textSize="12sp"
-                android:maxLines="1"
+                android:text="@string/fail_count"
+                android:textSize="14sp"
+                android:maxLines="2"
                 android:inputType="none"
                 android:focusable="false"
-                android:textColor="@color/colorSuccess"/>
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textColor="@color/text_gray"/>
+
+            <TextView
+                android:id="@+id/fail_count"
+                android:paddingTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fail_count"
+                android:textSize="12sp"
+                android:maxLines="2"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textColor="@color/colorError"/>
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 </LinearLayout>

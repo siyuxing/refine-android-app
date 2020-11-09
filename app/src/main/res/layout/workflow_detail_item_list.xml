@@ -6,8 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
+    android:layout_marginBottom="5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
     android:textSize="12sp"
     android:textStyle="bold"
     android:textColor="@color/trans_text_black"
@@ -18,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal"
         android:layout_gravity="bottom"
         android:theme="@style/TextLabel"
@@ -27,19 +29,37 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:theme="@style/TextLabel"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
+            android:orientation="vertical"
             android:layout_weight="2">
 
-            <customfonts.EditText_Roboto_Regular
+            <TextView
+                android:id="@+id/work_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sheet_id"
+                android:textSize="14sp"
+                android:maxLines="2"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textColor="@color/text_gray"/>
+
+            <TextView
                 android:id="@+id/work_id"
+                android:paddingTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/sheet_id"
+                android:text="@string/sheet_id"
                 android:textSize="12sp"
-                android:autoSizeMinTextSize="9sp"
                 android:maxLines="2"
                 android:inputType="none"
                 android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
                 android:textColor="@color/colorSuccess"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -47,18 +67,38 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:theme="@style/TextLabel"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
             android:layout_weight="2">
 
-            <customfonts.EditText_Roboto_Regular
+            <TextView
+                android:id="@+id/product_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/product_name"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textSize="14sp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/text_gray"/>
+
+            <TextView
                 android:id="@+id/product"
+                android:paddingTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/product_name"
-                android:maxLines="2"
-                android:autoSizeMinTextSize="9sp"
-                android:inputType="none"
-                android:focusable="false"
+                android:text="@string/product_name"
                 android:textSize="12sp"
+                android:maxLines="2"
+                android:inputType="none"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
                 android:textColor="@color/colorSuccess"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -66,37 +106,77 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:theme="@style/TextLabel"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
             android:layout_weight="2">
 
-            <customfonts.EditText_Roboto_Regular
-                android:id="@+id/start_date"
+            <TextView
+                android:id="@+id/start_date_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="@string/create_date"
-                android:textSize="12sp"
-                android:autoSizeMinTextSize="9sp"
-                android:maxLines="2"
-                android:inputType="none"
-                android:focusable="false"
-                android:textColor="@color/colorSuccess"/>
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:theme="@style/TextLabel"
-            android:layout_weight="1">
-
-            <customfonts.EditText_Roboto_Regular
-                android:id="@+id/total_count"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/count"
+                android:text="@string/create_date"
+                android:textSize="14sp"
                 android:maxLines="1"
                 android:inputType="none"
                 android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textColor="@color/text_gray"/>
+
+            <TextView
+                android:id="@+id/start_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:layout_weight="1"
+                android:text="@string/create_date"
                 android:textSize="12sp"
+                android:maxLines="1"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textColor="@color/colorSuccess"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:theme="@style/TextLabel"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/total_count_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/count"
+                android:textSize="14sp"
+                android:maxLines="1"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textColor="@color/text_gray"/>
+
+            <TextView
+                android:id="@+id/total_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:layout_weight="1"
+                android:text="@string/count"
+                android:textSize="12sp"
+                android:maxLines="1"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
                 android:textColor="@color/colorSuccess"/>
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>

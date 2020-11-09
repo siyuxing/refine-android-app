@@ -16,29 +16,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="5dp"
             android:elevation="1dp"
             android:orientation="vertical"
             android:paddingLeft="24dp"
             android:paddingRight="24dp">
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:theme="@style/TextLabel">
-
-                <customfonts.PrefixEditTest
-                    android:id="@+id/sheet_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/sheet_id"
-                    android:maxLines="1"
-                    android:inputType="none"
-                    android:focusable="false"
-                    android:textSize="15sp"
-                    android:textColor="@color/colorSuccess"/>
-            </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -146,24 +128,6 @@
                     android:layout_weight="1">
 
                     <customfonts.EditText_Roboto_Regular
-                        android:id="@+id/material"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/material"
-                        android:maxLines="1"
-                        android:inputType="none"
-                        android:focusable="false"
-                        android:textSize="15sp"
-                        android:textColor="@color/colorSuccess"/>
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/TextLabel"
-                    android:layout_weight="1">
-
-                    <customfonts.EditText_Roboto_Regular
                         android:id="@+id/material_count"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -174,15 +138,6 @@
                         android:textSize="15sp"
                         android:textColor="@color/colorSuccess"/>
                 </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="bottom"
-                android:theme="@style/TextLabel"
-                android:baselineAligned="false">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"

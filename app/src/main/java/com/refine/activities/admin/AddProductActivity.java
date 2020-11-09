@@ -6,6 +6,7 @@ import java.util.List;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import com.google.common.collect.Lists;
 import com.mysql.jdbc.StringUtils;
@@ -45,6 +46,16 @@ public class AddProductActivity extends CommonActivity {
         } catch (Exception e) {
             errorPopUp("获取信息失败！");
             allProducts = new ArrayList<>();
+        }
+    }
+
+    public void tryAddProduct(View v) {
+        Button button = findViewById(R.id.button);
+        button.setEnabled(false);
+        try {
+            addProduct(v);
+        } finally {
+            button.setEnabled(true);
         }
     }
 

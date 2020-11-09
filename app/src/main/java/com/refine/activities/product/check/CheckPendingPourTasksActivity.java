@@ -6,6 +6,6 @@ import com.refine.model.Operation;
 public class CheckPendingPourTasksActivity extends CheckPendingTasksCommon {
 
     public CheckPendingPourTasksActivity() {
-        super(Operation.浇注, RecordPourTaskHistoryActivity.class);
+        super(Operation.煮滤, RecordPourTaskHistoryActivity.class);
     }
 }

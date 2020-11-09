@@ -4,13 +4,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class DatabaseAccessor {
 
-    //private static final String DB_HOST_NAME = "rm-bp190y61vjv52poq7vo.mysql.rds.aliyuncs.com";
+    //private static final String DB_HOST_NAME = "rm-2zett33e1t4a03gvgio.mysql.rds.aliyuncs.com";
     private static final String DB_HOST_NAME = "10.0.2.2";
     private static final int QUERY_TIMEOUT = 20;
+
+    private static final String START_TRANSACTION = "start transaction";
 
     private final String username;
     private final String password;
@@ -48,10 +51,44 @@ public class DatabaseAccessor {
         }
     }
 
-    public void insert(String sql, Object[] arguments) throws Exception {
-
+    public void execute(String sql, Object[] arguments) throws Exception {
         try (final Connection connection = getConnection();
              final PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setQueryTimeout(QUERY_TIMEOUT);
+
+            if (arguments != null) {
+                for (int i = 0; i < arguments.length; i++) {
+                    st.setObject(i + 1, arguments[i]);
+                }
+            }
+            st.execute();
+        }
+    }
+
+
+    public void query(String sql, ResultSetCallback callback, Connection conn) throws Exception {
+        query(sql, null, callback, conn);
+    }
+
+    public void query(String sql, Object[] arguments, ResultSetCallback callback, Connection conn) throws Exception {
+        try (final PreparedStatement st = conn.prepareStatement(sql)) {
+            st.setQueryTimeout(QUERY_TIMEOUT);
+
+            if (arguments != null) {
+                for (int i = 0; i < arguments.length; i++) {
+                    st.setObject(i + 1, arguments[i]);
+                }
+            }
+            st.executeQuery();
+            final ResultSet rs = st.getResultSet();
+            while (rs.next()) {
+                callback.processResultSet(rs);
+            }
+        }
+    }
+
+    public void execute(String sql, Object[] arguments, Connection conn) throws Exception {
+        try (final PreparedStatement st = conn.prepareStatement(sql)) {
             st.setQueryTimeout(QUERY_TIMEOUT);
 
             if (arguments != null) {
@@ -63,18 +100,21 @@ public class DatabaseAccessor {
         }
     }
 
-    public void execute(String sql, Object[] arguments) throws Exception {
+    public Connection startTransaction() throws Exception {
+        Connection conn = getConnection();
+        conn.setAutoCommit(false);
 
-        try (final Connection connection = getConnection();
-             final PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setQueryTimeout(QUERY_TIMEOUT);
+        return conn;
+    }
 
-            if (arguments != null) {
-                for (int i = 0; i < arguments.length; i++) {
-                    st.setObject(i + 1, arguments[i]);
-                }
-            }
-            st.execute();
+    public void commitTransaction(Connection conn) throws Exception {
+        try {
+            conn.commit();
+        } catch (SQLException e) {
+            conn.rollback();
+            throw e;
+        } finally {
+            conn.close();
         }
     }
 

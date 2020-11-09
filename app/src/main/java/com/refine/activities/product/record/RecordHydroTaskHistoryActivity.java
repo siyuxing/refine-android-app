@@ -4,6 +4,6 @@ import com.refine.model.Operation;
 
 public class RecordHydroTaskHistoryActivity extends RecordWorkflowDetailsCommon {
     public RecordHydroTaskHistoryActivity() {
-        super(Operation.醛化, Operation.干燥);
+        super(Operation.湿加工, Operation.干燥硬化);
     }
 }

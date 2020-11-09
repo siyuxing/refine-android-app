@@ -6,6 +6,6 @@ import com.refine.model.Operation;
 public class CheckPendingHydroTasksActivity extends CheckPendingTasksCommon {
 
     public CheckPendingHydroTasksActivity() {
-        super(Operation.醛化, RecordHydroTaskHistoryActivity.class);
+        super(Operation.湿加工, RecordHydroTaskHistoryActivity.class);
     }
 }

@@ -7,6 +7,7 @@ import java.util.concurrent.FutureTask;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import com.refine.R;
 import com.refine.account.AccountProfileLocator;
@@ -38,22 +39,29 @@ public class UserLoginActivity extends CommonActivity {
     }
 
     public void loginActivity(View view) throws ExecutionException, InterruptedException {
-        final String username = usernameET.getText().toString();
-        final String password = passwordET.getText().toString();
+        Button login = findViewById(R.id.button);
+        login.setEnabled(false);
+        login.setClickable(false);
+        try {
+            final String username = usernameET.getText().toString();
+            final String password = passwordET.getText().toString();
 
-        Callable<Boolean> validLogin = () -> AccountProfileLocator.login(username, password);
+            Callable<Boolean> validLogin = () -> AccountProfileLocator.login(username, password);
 
-        FutureTask<Boolean> task = new FutureTask<>(validLogin);
-        Thread validLoginThread = new Thread(task);
+            FutureTask<Boolean> task = new FutureTask<>(validLogin);
+            Thread validLoginThread = new Thread(task);
 
-        validLoginThread.start();
+            validLoginThread.start();
 
-        if (task.get()) {
-            successPopUp("登陆成功，进入主界面...");
-            gotoHomePage();
-        } else {
-            passwordET.setText("");
-            errorPopUp("登陆失败");
+            if (task.get()) {
+                successPopUp("登陆成功，进入主界面...");
+                gotoHomePage();
+            } else {
+                errorPopUp("登陆失败");
+            }
+        } finally {
+            login.setEnabled(true);
+            login.setClickable(true);
         }
     }
 

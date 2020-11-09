@@ -6,6 +6,6 @@ import com.refine.model.Operation;
 public class CheckPendingDryTasksActivity extends CheckPendingTasksCommon {
 
     public CheckPendingDryTasksActivity() {
-        super(Operation.干燥, RecordDryTaskHistoryActivity.class);
+        super(Operation.干燥硬化, RecordDryTaskHistoryActivity.class);
     }
 }

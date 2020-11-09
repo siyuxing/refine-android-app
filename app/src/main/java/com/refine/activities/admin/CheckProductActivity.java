@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import com.refine.R;
 import com.refine.activities.CommonActivity;
 import com.refine.adapters.SingleSelectItemAdapter;
@@ -55,7 +56,17 @@ public class CheckProductActivity extends CommonActivity {
         }
     }
 
-    public void checkDetails(View v) {
+    public void tryCheckDetails(View v) {
+        Button button = findViewById(R.id.check_details);
+        button.setEnabled(false);
+        try {
+            checkDetails(v);
+        } finally {
+            button.setEnabled(true);
+        }
+    }
+
+    private void checkDetails(View v) {
         if (adapter.getSelected() == null) {
             errorPopUp("请选择产品");
         } else {
@@ -73,7 +84,17 @@ public class CheckProductActivity extends CommonActivity {
         }
     }
 
-    public void remove(View v) {
+    public void tryRemove(View v) {
+        Button button = findViewById(R.id.delete_button);
+        button.setEnabled(false);
+        try {
+            remove(v);
+        } finally {
+            button.setEnabled(true);
+        }
+    }
+
+    private void remove(View v) {
         if (adapter.getSelected() == null) {
             errorPopUp("请选择产品");
         } else {

@@ -11,6 +11,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import com.refine.R;
 import com.refine.activities.CommonActivity;
 import com.refine.adapters.WorkflowSheetAdapter;
@@ -44,7 +45,17 @@ public class WorkflowSheetListActivity extends CommonActivity {
         loadWorkflowSheet();
     }
 
-    public void checkDetails(View v) {
+    public void tryCheckDetails(View v) {
+        Button button = findViewById(R.id.check_details);
+        button.setEnabled(false);
+        try {
+            checkDetails(v);
+        } finally {
+            button.setEnabled(true);
+        }
+    }
+
+    private void checkDetails(View v) {
         if (workflowSheetAdapter.getSelected() == null) {
             errorPopUp("请选择工作单");
         } else {

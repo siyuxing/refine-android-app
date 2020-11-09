@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import com.refine.R;
 import com.refine.account.AccountProfileLocator;
@@ -17,6 +18,16 @@ public abstract class CommonActivity extends AppCompatActivity {
     public static final String DATE_FORMAT = "yyyy-MM-dd"; //In which you need put here
 
     private Snackbar snackbar = null;
+
+    public void tryLogout(View v) {
+        Button button = findViewById(R.id.button);
+        button.setEnabled(false);
+        try {
+            logoutActivity(v);
+        } finally {
+            button.setEnabled(true);
+        }
+    }
 
     public void logoutActivity(View view) {
         successPopUp("退出登陆");

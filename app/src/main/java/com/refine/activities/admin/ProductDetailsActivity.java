@@ -2,6 +2,7 @@ package com.refine.activities.admin;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import com.mysql.jdbc.StringUtils;
 import com.refine.R;
@@ -38,7 +39,17 @@ public class ProductDetailsActivity extends CommonActivity {
         productNameET.setText(productName);
     }
 
-    public void modifyProduct(View v) {
+    public void tryModifyProduct(View v) {
+        Button button = findViewById(R.id.button);
+        button.setEnabled(false);
+        try {
+            modifyProduct(v);
+        } finally {
+            button.setEnabled(true);
+        }
+    }
+
+    private void modifyProduct(View v) {
         final String newProductName = productNameET.getText().toString();
 
         if (StringUtils.isNullOrEmpty(newProductName)) {

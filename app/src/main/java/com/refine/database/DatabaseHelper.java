@@ -1,14 +1,13 @@
 package com.refine.database;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.refine.account.AccountProfileLocator;
-import com.refine.model.JobHistory;
 import com.refine.model.Operation;
 import com.refine.model.OwnerSummary;
 import com.refine.model.ProductStatus;
@@ -33,6 +32,7 @@ public class DatabaseHelper {
     private static final String CHECK_USER_INFO_QUERY = "SELECT count(*) FROM users WHERE username = ?";
     private static final String INSERT_USER_INFO_QUERY = "INSERT INTO users (username, display_name, is_admin) VALUES (?, ?, ?)";
     private static final String MODIFY_USER_INFO_QUERY = "UPDATE users SET display_name = ?, is_admin = ? WHERE username = ?";
+    private static final String MARK_USER_DELETION_QUERY = "UPDATE users SET display_name = concat(display_name, '(已删除用户)'), is_admin = 0 WHERE username = ?";
     private static final String INSERT_USER_PERMISSION_QUERY = "INSERT INTO user_permissions (username, permission) VALUES (?, ?)";
     private static final String REMOVE_USER_PERMISSIONS_QUERY = "DELETE FROM user_permissions WHERE username = ?";
     private static final String SELECT_USER_INFO_QUERY = "SELECT * FROM users WHERE username = ?";
@@ -41,23 +41,12 @@ public class DatabaseHelper {
     private static final String ADD_PRODUCT_QUERY = "INSERT INTO products (product_name) VALUES (?)";
     private static final String MODIFY_PRODUCT_QUERY = "UPDATE products SET product_name = ? WHERE product_name = ?";
     private static final String LIST_PRODUCTS_QUERY = "SELECT product_name from products";
-    private static final String DELETE_JOB_HISTORY_FOR_PRODUCT_QUERY = "DELETE FROM job_history WHERE product_name = ?";
-    private static final String DELETE_PRODUCT_STOCK_FOR_PRODUCT_QUERY = "DELETE FROM products_stock WHERE product_name = ?";
     private static final String DELETE_PRODUCT_QUERY = "DELETE FROM products WHERE product_name = ?";
     private static final String SELECT_PRODUCT_ID_QUERY = "SELECT id FROM products WHERE product_name = ?";
 
     private static final String CHECK_PRODUCT_COUNT_QUERY = "SELECT number from product_stock WHERE product_id = ? AND status = ?";
     private static final String ADD_PRODUCTS_TO_STOCK = "INSERT INTO product_stock (product_id, number, status) values (?, ?, ?)";
     private static final String MODIFY_PRODUCT_COUNT_IN_STOCK = "UPDATE product_stock SET number = ? WHERE product_id = ? AND status = ?";
-
-    private static final String ADD_JOB_HISTORY_QUERY = "INSERT INTO job_history (product_name, date, owner_username, operation, additional_note," +
-                                                          " success, failure, material_num) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SEARCH_JOB_HISTORY = "SELECT * FROM job_history WHERE date >= ? AND date <= ?";
-    private static final String SEARCH_JOB_HISTORY_ORDER_BY = " ORDER BY owner_username, product_name, date";
-    private static final String GET_JOB_HISTORY_QUERY = "SELECT * FROM job_history WHERE id = ?";
-    private static final String DELETE_JOB_HISTORY_QUERY = "DELETE FROM job_history WHERE id = ?";
-    private static final String MODIFY_JOB_HISTORY_QUERY = "UPDATE job_history SET date = ?, additional_note = ?, success = ?, failure = ?" +
-                                                                   " WHERE id = ?";
 
     private static final String ADD_WORKFLOW_SHEET_QUERY = "INSERT INTO workflow_sheet (product_id, id, start_date, material, material_num," +
                                                                 " expected_product_count, requester) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -68,6 +57,8 @@ public class DatabaseHelper {
 
     private static final String ADD_WORKFLOW_DETAILS_QUERY = "INSERT INTO workflow_details (workflow_id, product_id, start_date, total, operation)"
                                                                    + " VALUES (?, ?, ?, ?, ?)";
+    private static final String UPDATE_WORKFLOW_DETAILS_QUERY = "UPDATE workflow_details SET owner_username = ?, success = ?, failure = ?, finish_date = ?,"
+                                                                         + " additional_note = ? WHERE id = ?";
     private static final String CONFIRM_WORKFLOW_DETAILS_QUERY = "UPDATE workflow_details SET owner_username = ?, success = ?, failure = ?, finish_date = ?,"
                                                                          + " additional_note = ?, is_finish = true WHERE id = ?";
     private static final String SEARCH_PENDING_WORKFLOW_DETAILS_QUERY = "SELECT wd.*, product_name FROM workflow_details wd join products p on wd.product_id = p.id" +
@@ -93,38 +84,56 @@ public class DatabaseHelper {
     private static final String PRODUCT_ID_FILTER = " AND product_id = ?";
     private static final String OPERATION_FILTER = " AND operation = ?";
 
+    public static Connection startTransaction() throws Exception {
+        DatabaseAccessor dbAccessor = fetchDBAccessor();
+
+        return dbAccessor.startTransaction();
+    }
+
+    public static void commitTransaction(Connection connection) throws Exception {
+        DatabaseAccessor dbAccessor = fetchDBAccessor();
+
+        dbAccessor.commitTransaction(connection);
+    }
+
     // User related queries
     public static void createUser(String username, String password, boolean adminUser) throws Exception {
         DatabaseAccessor dbAccessor = fetchDBAccessor();
+        Connection conn = dbAccessor.startTransaction();
         // Recreate user to reset password and permissions
-        dbAccessor.execute(DROP_USER_QUERY, new String[] {username});
-        dbAccessor.execute(CREATE_USER_QUERY, new String[] {username, password});
+        dbAccessor.execute(DROP_USER_QUERY, new String[] {username}, conn);
+        dbAccessor.execute(CREATE_USER_QUERY, new String[] {username, password}, conn);
 
         if (adminUser) {
-            dbAccessor.execute(GRANT_ADMIN_PERMISSION_QUERY, new String[] {username});
-            dbAccessor.execute(GRANT_GRANT_OPTION_QUERY, new String[] {username});
+            dbAccessor.execute(GRANT_ADMIN_PERMISSION_QUERY, new String[] {username}, conn);
+            dbAccessor.execute(GRANT_GRANT_OPTION_QUERY, new String[] {username}, conn);
         } else {
-            dbAccessor.execute(GRANT_NORMAL_PERMISSION_QUERY, new String[] {username});
+            dbAccessor.execute(GRANT_NORMAL_PERMISSION_QUERY, new String[] {username}, conn);
         }
-        dbAccessor.execute(FLUSH_PRIVILEGES, null);
+        dbAccessor.execute(FLUSH_PRIVILEGES, null, conn);
+
+        dbAccessor.commitTransaction(conn);
     }
 
     public static void updateUser(String username, String password, boolean adminUser) throws Exception {
         DatabaseAccessor dbAccessor = fetchDBAccessor();
+        Connection conn = dbAccessor.startTransaction();
 
         if (password != null) {
             // Recreate user to reset password and permissions
-            dbAccessor.execute(DROP_USER_QUERY, new String[]{username});
-            dbAccessor.execute(CREATE_USER_QUERY, new String[]{username, password});
+            dbAccessor.execute(DROP_USER_QUERY, new String[]{username}, conn);
+            dbAccessor.execute(CREATE_USER_QUERY, new String[]{username, password}, conn);
         }
 
         if (adminUser) {
-            dbAccessor.execute(GRANT_ADMIN_PERMISSION_QUERY, new String[] {username});
-            dbAccessor.execute(GRANT_GRANT_OPTION_QUERY, new String[] {username});
+            dbAccessor.execute(GRANT_ADMIN_PERMISSION_QUERY, new String[] {username}, conn);
+            dbAccessor.execute(GRANT_GRANT_OPTION_QUERY, new String[] {username}, conn);
         } else {
-            dbAccessor.execute(GRANT_NORMAL_PERMISSION_QUERY, new String[] {username});
+            dbAccessor.execute(GRANT_NORMAL_PERMISSION_QUERY, new String[] {username}, conn);
         }
-        dbAccessor.execute(FLUSH_PRIVILEGES, null);
+        dbAccessor.execute(FLUSH_PRIVILEGES, null, conn);
+
+        dbAccessor.commitTransaction(conn);
     }
 
     public static void dropUser(String username) throws Exception {
@@ -134,7 +143,7 @@ public class DatabaseHelper {
         SingleNumberCallback checkCallback = new SingleNumberCallback();
         dbAccessor.query(CHECK_USER_INFO_QUERY, new String[] {username}, checkCallback);
         if (checkCallback.getResult() == 1L) {
-            dbAccessor.execute(MODIFY_USER_INFO_QUERY, new Object[]{"已删除", 0, username});
+            dbAccessor.execute(MARK_USER_DELETION_QUERY, new Object[]{username});
         }
         // Delete database user
         dbAccessor.execute(DROP_USER_QUERY, new String[] {username});
@@ -153,7 +162,10 @@ public class DatabaseHelper {
         List<User> users = new ArrayList<>();
 
         for (String userName : listAllUserNames()) {
-            users.add(getUser(userName));
+            User user = getUser(userName);
+            if (user != null) {
+                users.add(user);
+            }
         }
         return users;
     }
@@ -248,33 +260,6 @@ public class DatabaseHelper {
     }
 
     // Product stock related queries
-    public static void mutateProductCountInStock(Long productId, String productStatus, int increment) throws Exception {
-        DatabaseAccessor dbAccessor = fetchDBAccessor();
-
-        if (increment == 0) {
-            return;
-        }
-
-        SingleNumberCallback checkCallback = new SingleNumberCallback();
-        dbAccessor.query(CHECK_PRODUCT_COUNT_QUERY, new Object[] {productId, productStatus}, checkCallback);
-        Long productCount = checkCallback.getResult();
-        if (productCount == null) {
-            if (increment >= 0) {
-                dbAccessor.execute(ADD_PRODUCTS_TO_STOCK, new Object[] {productId, (long) increment, productStatus});
-            } else {
-                throw new InsuffcientProductException(String.format("%s的产品数量不足(%d), 现有数量(%d).",
-                                                                    ProductStatus.fromStatusCode(productStatus), Math.abs(increment), 0));
-            }
-        } else {
-            if (productCount + increment >= 0) {
-                dbAccessor.execute(MODIFY_PRODUCT_COUNT_IN_STOCK, new Object[] {productCount + increment, productId, productStatus});
-            } else {
-                throw new InsuffcientProductException(String.format("%s的产品数量不足(%d), 现有数量(%d).",
-                                                                    ProductStatus.fromStatusCode(productStatus), increment, productCount));
-            }
-        }
-    }
-
     public static void updateProductCountInStock(Long productId, String productStatus, long count) throws Exception {
         DatabaseAccessor dbAccessor = fetchDBAccessor();
 
@@ -288,79 +273,45 @@ public class DatabaseHelper {
         }
     }
 
-    // Job History related queries
-    @Deprecated
-    public static void addJobHistory(String productName, Date date, String ownerName, String operation, String note,
-                                     Integer successCount, Integer failCount, Integer materialCount) throws Exception {
+    public static void mutateProductCountInStock(Long productId, String productStatus, int increment, Connection conn) throws Exception {
         DatabaseAccessor dbAccessor = fetchDBAccessor();
 
-        dbAccessor.execute(ADD_JOB_HISTORY_QUERY, new Object[] {productName, date, ownerName, operation, note, successCount, failCount, materialCount});
-    }
-
-    @Deprecated
-    public static void updateJobHistory(Long jobId, Date date, String note, Integer successCount, Integer failCount) throws Exception {
-        DatabaseAccessor dbAccessor = fetchDBAccessor();
-
-        dbAccessor.execute(MODIFY_JOB_HISTORY_QUERY, new Object[] {date, note, successCount, failCount, jobId});
-    }
-
-    @Deprecated
-    public static List<JobHistory> searchJobHistory(Date startDate, Date endDate, String owner, String productName, String operation) throws Exception {
-        String query = SEARCH_JOB_HISTORY;
-        List<Object> params = Lists.newArrayList(startDate, endDate);
-        if (owner != null) {
-            query += OWNER_USERNAME_FILTER;
-            params.add(owner);
+        if (increment == 0) {
+            return;
         }
-        if (productName != null) {
-            query += PRODUCT_NAME_FILTER;
-            params.add(productName);
-        }
-        if (operation != null) {
-            query += OPERATION_FILTER;
-            params.add(operation);
-        }
-        query += SEARCH_JOB_HISTORY_ORDER_BY;
-        JobHistoriesCallback callback = new JobHistoriesCallback();
-        DatabaseAccessor dbAccessor = fetchDBAccessor();
 
-        dbAccessor.query(query, params.toArray(), callback);
-
-        return callback.getResult();
-    }
-
-    @Deprecated
-    public static JobHistory getJobHistory(Long jobId) throws Exception {
-        DatabaseAccessor dbAccessor = fetchDBAccessor();
-
-        JobHistoriesCallback callback = new JobHistoriesCallback();
-        dbAccessor.query(GET_JOB_HISTORY_QUERY, new Object[] {jobId}, callback);
-
-        if (callback.getResult().isEmpty()) {
-            return null;
+        SingleNumberCallback checkCallback = new SingleNumberCallback();
+        dbAccessor.query(CHECK_PRODUCT_COUNT_QUERY, new Object[] {productId, productStatus}, checkCallback, conn);
+        Long productCount = checkCallback.getResult();
+        if (productCount == null) {
+            if (increment >= 0) {
+                dbAccessor.execute(ADD_PRODUCTS_TO_STOCK, new Object[] {productId, (long) increment, productStatus}, conn);
+            } else {
+                throw new InsuffcientProductException(String.format("%s的产品数量不足(%d), 现有数量(%d).",
+                                                                    ProductStatus.fromStatusCode(productStatus), Math.abs(increment), 0));
+            }
         } else {
-            return Iterables.getOnlyElement(callback.getResult());
+            if (productCount + increment >= 0) {
+                dbAccessor.execute(MODIFY_PRODUCT_COUNT_IN_STOCK, new Object[] {productCount + increment, productId, productStatus}, conn);
+            } else {
+                throw new InsuffcientProductException(String.format("%s的产品数量不足(%d), 现有数量(%d).",
+                                                                    ProductStatus.fromStatusCode(productStatus), increment, productCount));
+            }
         }
-    }
-
-    @Deprecated
-    public static void deleteJobHistory(Long jobId) throws Exception {
-        DatabaseAccessor dbAccessor = fetchDBAccessor();
-
-        dbAccessor.execute(DELETE_JOB_HISTORY_QUERY, new Object[] {jobId});
     }
 
     // Workflow Sheet related queries
-    public static void addWorkflowSheet(Long productId, String sheetId, Date startDate, String material, Integer materialCount, Integer expectedProductCount, String requester) throws Exception {
+    public static void addWorkflowSheet(Long productId, String sheetId, Date startDate, String material, Integer materialCount,
+                                        Integer expectedProductCount, String requester, Connection conn) throws Exception {
         DatabaseAccessor dbAccessor = fetchDBAccessor();
 
-        dbAccessor.execute(ADD_WORKFLOW_SHEET_QUERY, new Object[] {productId, sheetId, startDate, material, materialCount, expectedProductCount, requester});
+        dbAccessor.execute(ADD_WORKFLOW_SHEET_QUERY, new Object[] {productId, sheetId, startDate, material, materialCount, expectedProductCount, requester}, conn);
     }
 
-    public static void completeWorkflowSheet(String sheetId, Date endDate, Integer finalCount) throws Exception {
+    public static void completeWorkflowSheet(String sheetId, Date endDate, Integer finalCount, Connection conn) throws Exception {
         DatabaseAccessor dbAccessor = fetchDBAccessor();
 
-        dbAccessor.execute(COMPLETE_WORKFLOW_SHEET_QUERY, new Object[] {endDate, finalCount, sheetId});
+        dbAccessor.execute(COMPLETE_WORKFLOW_SHEET_QUERY, new Object[] {endDate, finalCount, sheetId}, conn);
     }
 
     public static List<WorkflowSheet> searchWorkflowSheets(Date startDate, Date endDate, String requester, String productName) throws Exception {
@@ -384,10 +335,10 @@ public class DatabaseHelper {
     }
 
     // Workflow Details related queries
-    public static void createWorkflowDetails(Long productId, String sheetId, Date startDate, Integer totalCount, Operation operation) throws Exception {
+    public static void createWorkflowDetails(Long productId, String sheetId, Date startDate, Integer totalCount, Operation operation, Connection conn) throws Exception {
         DatabaseAccessor dbAccessor = fetchDBAccessor();
 
-        dbAccessor.execute(ADD_WORKFLOW_DETAILS_QUERY, new Object[] {sheetId, productId, startDate, totalCount, operation.getOperationCode()});
+        dbAccessor.execute(ADD_WORKFLOW_DETAILS_QUERY, new Object[] {sheetId, productId, startDate, totalCount, operation.getOperationCode()}, conn);
     }
 
     public static List<WorkflowDetails> searchPendingWorkflowDetails(Operation operation) throws Exception {
@@ -414,18 +365,25 @@ public class DatabaseHelper {
         return callback.getResult();
     }
 
-    public static void confirmWorkflowDetail(Long workflowDetailId, String owner, Date finishDate,
+    public static void updateWorkflowDetail(Long workflowDetailId, String owner, Date finishDate,
                                              Integer successCount, Integer failedCount, String note) throws Exception {
         DatabaseAccessor dbAccessor = fetchDBAccessor();
 
-        dbAccessor.execute(CONFIRM_WORKFLOW_DETAILS_QUERY, new Object[] {owner, successCount, failedCount, finishDate, note, workflowDetailId});
+        dbAccessor.execute(UPDATE_WORKFLOW_DETAILS_QUERY, new Object[] {owner, successCount, failedCount, finishDate, note, workflowDetailId});
+    }
+
+    public static void confirmWorkflowDetail(Long workflowDetailId, String owner, Date finishDate,
+                                             Integer successCount, Integer failedCount, String note, Connection conn) throws Exception {
+        DatabaseAccessor dbAccessor = fetchDBAccessor();
+
+        dbAccessor.execute(CONFIRM_WORKFLOW_DETAILS_QUERY, new Object[] {owner, successCount, failedCount, finishDate, note, workflowDetailId}, conn);
     }
 
     // Discharge history queries
-    public static void addDischargeHistory(Long productId, Date date, String owner, Integer count, String note) throws Exception {
+    public static void addDischargeHistory(Long productId, Date date, String owner, Integer count, String note, Connection conn) throws Exception {
         DatabaseAccessor dbAccessor = fetchDBAccessor();
 
-        dbAccessor.execute(ADD_DISCHARGE_HISTORY_QUERY, new Object[] {date, owner, count, productId, note});
+        dbAccessor.execute(ADD_DISCHARGE_HISTORY_QUERY, new Object[] {date, owner, count, productId, note}, conn);
     }
 
     // OwnerSummary related queries

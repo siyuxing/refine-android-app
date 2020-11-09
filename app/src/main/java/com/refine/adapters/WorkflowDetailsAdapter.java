@@ -47,15 +47,15 @@ public class WorkflowDetailsAdapter extends RecyclerView.Adapter<WorkflowDetails
     }
 
     public WorkflowDetails getSelected() {
-        return workflowDetails.get(checkedPosition);
+        return checkedPosition >= 0 ? workflowDetails.get(checkedPosition) : null;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ViewGroup parent;
-        private TextView workId;
-        private TextView product;
-        private TextView startDate;
-        private TextView totalCount;
+        private final ViewGroup parent;
+        private final TextView workId;
+        private final TextView product;
+        private final TextView startDate;
+        private final TextView totalCount;
 
         public ViewHolder(ViewGroup parent, View itemView) {
             super(itemView);

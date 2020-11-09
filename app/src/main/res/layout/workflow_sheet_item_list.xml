@@ -17,7 +17,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:background="@color/colorSuccess"
+        android:baselineAligned="false">
+
+        <TextView
+            android:id="@+id/work_id"
+            android:paddingTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sheet_id"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:maxLines="2"
+            android:inputType="none"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
+            android:textColor="@color/view_gray"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal"
         android:layout_gravity="bottom"
         android:theme="@style/TextLabel"
@@ -29,17 +58,33 @@
             android:theme="@style/TextLabel"
             android:layout_weight="1">
 
-            <customfonts.EditText_Roboto_Regular
-                android:id="@+id/work_id"
+            <TextView
+                android:id="@+id/product_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/sheet_id"
-                android:textSize="12sp"
-                android:maxLines="1"
+                android:text="@string/product_name"
+                android:textSize="14sp"
+                android:maxLines="2"
                 android:inputType="none"
                 android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textColor="@color/text_gray"/>
+
+            <TextView
+                android:id="@+id/product"
+                android:paddingTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/product_name"
+                android:textSize="12sp"
+                android:maxLines="2"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
                 android:textColor="@color/colorSuccess"/>
+
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -48,22 +93,43 @@
             android:theme="@style/TextLabel"
             android:layout_weight="1">
 
-            <customfonts.EditText_Roboto_Regular
-                android:id="@+id/product"
+            <TextView
+                android:id="@+id/requester_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/product_name"
-                android:maxLines="1"
+                android:text="@string/requester"
+                android:textSize="14sp"
+                android:maxLines="2"
                 android:inputType="none"
                 android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textColor="@color/text_gray"/>
+
+            <TextView
+                android:id="@+id/requester"
+                android:paddingTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/requester"
                 android:textSize="12sp"
+                android:maxLines="2"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
                 android:textColor="@color/colorSuccess"/>
+
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal"
         android:layout_gravity="bottom"
         android:theme="@style/TextLabel"
@@ -75,16 +141,31 @@
             android:theme="@style/TextLabel"
             android:layout_weight="2">
 
-            <customfonts.EditText_Roboto_Regular
+            <TextView
+                android:id="@+id/start_date_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/create_date"
+                android:textSize="14sp"
+                android:maxLines="2"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textColor="@color/text_gray"/>
+
+            <TextView
                 android:id="@+id/start_date"
+                android:paddingTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/create_date"
+                android:text="@string/create_date"
                 android:textSize="12sp"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:inputType="none"
                 android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
                 android:textColor="@color/colorSuccess"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -94,15 +175,31 @@
             android:theme="@style/TextLabel"
             android:layout_weight="1">
 
-            <customfonts.EditText_Roboto_Regular
+            <TextView
+                android:id="@+id/request_num_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/expected_count"
+                android:textSize="14sp"
+                android:maxLines="2"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textColor="@color/text_gray"/>
+
+            <TextView
                 android:id="@+id/request_num"
+                android:paddingTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/expected_count"
-                android:maxLines="1"
+                android:text="@string/expected_count"
+                android:textSize="12sp"
+                android:maxLines="2"
                 android:inputType="none"
                 android:focusable="false"
-                android:textSize="12sp"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
                 android:textColor="@color/colorSuccess"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -112,17 +209,33 @@
             android:theme="@style/TextLabel"
             android:layout_weight="1">
 
-            <customfonts.EditText_Roboto_Regular
-                android:id="@+id/finish_num"
+            <TextView
+                android:id="@+id/finish_num_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/finish_count"
-                android:textSize="12sp"
-                android:maxLines="1"
+                android:text="@string/finish_count"
+                android:textSize="14sp"
+                android:maxLines="2"
                 android:inputType="none"
                 android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textColor="@color/text_gray"/>
+
+            <TextView
+                android:id="@+id/finish_num"
+                android:paddingTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/finish_count"
+                android:textSize="12sp"
+                android:maxLines="2"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
                 android:textColor="@color/colorSuccess"/>
+
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 </LinearLayout>

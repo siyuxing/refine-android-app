@@ -30,15 +30,16 @@
         <activity android:name="com.refine.activities.admin.ProductDetailsActivity" />
 
         <activity android:name="com.refine.activities.product.ProductOwnerOperations" />
-        <activity android:name="com.refine.activities.product.ProductOwnerJobHistorySearchActivity" />
         <activity android:name="com.refine.activities.product.CreateWorkflowSheetActivity" />
 
+        <activity android:name="com.refine.activities.product.check.CheckPendingDipInTasksActivity" />
         <activity android:name="com.refine.activities.product.check.CheckPendingPourTasksActivity" />
         <activity android:name="com.refine.activities.product.check.CheckPendingHydroTasksActivity" />
         <activity android:name="com.refine.activities.product.check.CheckPendingDryTasksActivity" />
         <activity android:name="com.refine.activities.product.check.CheckPendingCutTasksActivity" />
         <activity android:name="com.refine.activities.product.check.CheckPendingPackTasksActivity" />
 
+        <activity android:name="com.refine.activities.product.record.RecordDipInTaskHistoryActivity" />
         <activity android:name="com.refine.activities.product.record.RecordPourTaskHistoryActivity" />
         <activity android:name="com.refine.activities.product.record.RecordHydroTaskHistoryActivity" />
         <activity android:name="com.refine.activities.product.record.RecordDryTaskHistoryActivity" />
@@ -50,8 +51,6 @@
         <activity android:name="com.refine.activities.search.AdminWorkflowSheetSearchActivity" />
         <activity android:name="com.refine.activities.search.WorkflowSheetListActivity" />
         <activity android:name="com.refine.activities.search.WorkflowSheetDetailsActivity" />
-        <activity android:name="com.refine.activities.search.JobHistoryListActivity" />
-        <activity android:name="com.refine.activities.search.JobHistoryDetailsActivity" />
         <activity android:name="com.refine.activities.search.OwnerSummarySearchActivity" />
         <activity android:name="com.refine.activities.search.OwnerSummaryDetailsActivity" />
         <activity android:name="com.refine.activities.search.ProductStockSearchActivity" />

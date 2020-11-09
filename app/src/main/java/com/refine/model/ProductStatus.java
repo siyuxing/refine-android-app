@@ -1,7 +1,8 @@
 package com.refine.model;
 
 public enum ProductStatus {
-    待醛化("poured"),
+    待煮滤("poured"),
+    待湿加工("zhulved"),
     待干燥("hydro"),
     待切割("dried"),
     待包装入库("cut"),

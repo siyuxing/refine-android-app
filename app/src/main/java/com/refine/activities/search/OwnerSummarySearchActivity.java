@@ -12,6 +12,7 @@ import android.os.StrictMode;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import com.google.common.collect.Lists;
@@ -111,7 +112,17 @@ public class OwnerSummarySearchActivity extends CommonActivity {
         }
     }
 
-    public void search(View v) {
+    public void trySearch(View v) {
+        Button button = findViewById(R.id.button);
+        button.setEnabled(false);
+        try {
+            search(v);
+        } finally {
+            button.setEnabled(true);
+        }
+    }
+
+    private void search(View v) {
         if (ownerSpinner.getSelectedItemPosition() == AdapterView.INVALID_POSITION
                     || PLACE_HOLDER_USER.equals(allUsers.get(ownerSpinner.getSelectedItemPosition()))) {
             errorPopUp("请选择用户");

@@ -47,22 +47,24 @@ public class WorkflowSheetAdapter extends RecyclerView.Adapter<WorkflowSheetAdap
     }
 
     public WorkflowSheet getSelected() {
-        return workflowSheets.get(checkedPosition);
+        return checkedPosition >= 0 ? workflowSheets.get(checkedPosition) : null;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ViewGroup parent;
-        private TextView workId;
-        private TextView product;
-        private TextView startDate;
-        private TextView requestCount;
-        private TextView finishCount;
+        private final ViewGroup parent;
+        private final TextView workId;
+        private final TextView product;
+        private final TextView requester;
+        private final TextView startDate;
+        private final TextView requestCount;
+        private final TextView finishCount;
 
         public ViewHolder(ViewGroup parent, View itemView) {
             super(itemView);
             this.parent = parent;
             this.workId = itemView.findViewById(R.id.work_id);
             this.product = itemView.findViewById(R.id.product);
+            this.requester = itemView.findViewById(R.id.requester);
             this.startDate = itemView.findViewById(R.id.start_date);
             this.requestCount = itemView.findViewById(R.id.request_num);
             this.finishCount = itemView.findViewById(R.id.finish_num);
@@ -88,8 +90,9 @@ public class WorkflowSheetAdapter extends RecyclerView.Adapter<WorkflowSheetAdap
         private void setWorkflowSheet(WorkflowSheet workflowSheet) {
             SimpleDateFormat sdf = new SimpleDateFormat(CommonActivity.DATE_FORMAT, Locale.CHINA);
 
-            workId.setText(workflowSheet.getSheetId());
+            workId.setText("任务单 " + workflowSheet.getSheetId());
             product.setText(workflowSheet.getProductName());
+            requester.setText(workflowSheet.getRequester());
             startDate.setText(sdf.format(workflowSheet.getStartDate()));
 
             requestCount.setText(String.valueOf(workflowSheet.getNumOfRequested()));

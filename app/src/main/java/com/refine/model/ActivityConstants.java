@@ -13,6 +13,7 @@ import com.refine.activities.product.AddPickupHistoryActivity;
 import com.refine.activities.product.CreateWorkflowSheetActivity;
 import com.refine.activities.product.ProductOwnerOperations;
 import com.refine.activities.product.check.CheckPendingCutTasksActivity;
+import com.refine.activities.product.check.CheckPendingDipInTasksActivity;
 import com.refine.activities.product.check.CheckPendingDryTasksActivity;
 import com.refine.activities.product.check.CheckPendingHydroTasksActivity;
 import com.refine.activities.product.check.CheckPendingPackTasksActivity;
@@ -34,9 +35,10 @@ public final class ActivityConstants {
                       .put(AdminUserHome.PRODUCT_OWNER_OPTIONS, ProductOwnerOperations.class)
                       .put(ProductOwnerOperations.PRODUCT_STOCK_SEARCH, ProductStockSearchActivity.class)
                       .put(Operation.创建任务单.name(), CreateWorkflowSheetActivity.class)
-                      .put(Operation.浇注.name(), CheckPendingPourTasksActivity.class)
-                      .put(Operation.醛化.name(), CheckPendingHydroTasksActivity.class)
-                      .put(Operation.干燥.name(), CheckPendingDryTasksActivity.class)
+                      .put(Operation.配料浸泡.name(), CheckPendingDipInTasksActivity.class)
+                      .put(Operation.煮滤.name(), CheckPendingPourTasksActivity.class)
+                      .put(Operation.湿加工.name(), CheckPendingHydroTasksActivity.class)
+                      .put(Operation.干燥硬化.name(), CheckPendingDryTasksActivity.class)
                       .put(Operation.干加工切割.name(), CheckPendingCutTasksActivity.class)
                       .put(Operation.包装入库.name(), CheckPendingPackTasksActivity.class)
                       .put(Operation.出库.name(), AddPickupHistoryActivity.class)
@@ -59,4 +61,5 @@ public final class ActivityConstants {
 
     public static final String SPINNER_PLACE_HOLDER_OPTION = "请选择";
     public static final String UNKNOWN_FIELD_VALUE = "未知";
+    public static final String UNFINISHED_FIELD_VALUE = "未完成";
 }
