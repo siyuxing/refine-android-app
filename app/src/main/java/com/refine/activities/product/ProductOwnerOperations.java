@@ -11,9 +11,11 @@ import com.refine.R;
 import com.refine.account.AccountProfileLocator;
 import com.refine.activities.CommonActivity;
 import com.refine.adapters.ActivityListAdapter;
+import com.refine.model.Operation;
 
 public class ProductOwnerOperations extends CommonActivity {
     public static final String PRODUCT_STOCK_SEARCH = "库存信息查询";
+    public static final String RECORD_JOB = "录入任务";
     private RecyclerView recyclerview;
     private ActivityListAdapter activityListAdapter;
 
@@ -30,7 +32,14 @@ public class ProductOwnerOperations extends CommonActivity {
         recyclerview.setItemAnimator(new DefaultItemAnimator());
 
         List<String> operations = Lists.newArrayList(PRODUCT_STOCK_SEARCH);
-        operations.addAll(AccountProfileLocator.getProfile().getAllowedOperations());
+        List<String> permissions = AccountProfileLocator.getProfile().getAllowedOperations();
+        if (permissions.contains(Operation.创建任务单.name())) {
+            operations.add(Operation.创建任务单.name());
+        }
+        operations.add(RECORD_JOB);
+        if (permissions.contains(Operation.出库.name())) {
+            operations.add(Operation.出库.name());
+        }
         activityListAdapter = new ActivityListAdapter(ProductOwnerOperations.this, operations);
         recyclerview.setAdapter(activityListAdapter);
     }

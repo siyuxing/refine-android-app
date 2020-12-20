@@ -51,6 +51,8 @@ public class DatabaseHelper {
     private static final String ADD_WORKFLOW_SHEET_QUERY = "INSERT INTO workflow_sheet (product_id, id, start_date, material, material_num," +
                                                                 " expected_product_count, requester) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String COMPLETE_WORKFLOW_SHEET_QUERY = "UPDATE workflow_sheet SET end_date = ?, final_product_count = ? WHERE id = ?";
+    private static final String GET_WORKFLOW_SHEET_QUERY = "SELECT ws.*, product_name FROM workflow_sheet ws join products p on ws.product_id = p.id " +
+                                                                      "WHERE ws.id = ?";
     private static final String SEARCH_WORKFLOW_SHEET_QUERY = "SELECT ws.*, product_name FROM workflow_sheet ws join products p on ws.product_id = p.id " +
                                                                       "WHERE start_date >= ? AND start_date <= ?";
     private static final String SEARCH_WORKFLOW_SHEET_ORDER_BY = " ORDER BY ws.id, product_id";
@@ -61,6 +63,8 @@ public class DatabaseHelper {
                                                                          + " additional_note = ? WHERE id = ?";
     private static final String CONFIRM_WORKFLOW_DETAILS_QUERY = "UPDATE workflow_details SET owner_username = ?, success = ?, failure = ?, finish_date = ?,"
                                                                          + " additional_note = ?, is_finish = true WHERE id = ?";
+    private static final String SEARCH_ALL_PENDING_WORKFLOW_DETAILS_QUERY = "SELECT wd.*, product_name FROM workflow_details wd join products p on wd.product_id = p.id" +
+                                                                                " WHERE is_finish = '0'";
     private static final String SEARCH_PENDING_WORKFLOW_DETAILS_QUERY = "SELECT wd.*, product_name FROM workflow_details wd join products p on wd.product_id = p.id" +
                                                                                 " WHERE operation = ? AND is_finish = '0'";
     private static final String GET_WORKFLOW_DETAILS_QUERY = "SELECT wd.*, product_name FROM workflow_details wd join products p on wd.product_id = p.id WHERE wd.id = ?";
@@ -181,7 +185,10 @@ public class DatabaseHelper {
         List<User> users = new ArrayList<>();
 
         for (String userName : listAllOtherUserNames()) {
-            users.add(getUser(userName));
+            User user = getUser(userName);
+            if (user != null) {
+                users.add(getUser(userName));
+            }
         }
         return users;
     }
@@ -314,6 +321,18 @@ public class DatabaseHelper {
         dbAccessor.execute(COMPLETE_WORKFLOW_SHEET_QUERY, new Object[] {endDate, finalCount, sheetId}, conn);
     }
 
+    public static WorkflowSheet getWorkflowSheet(String sheetId) throws Exception{
+        WorkflowSheetCallback callback = new WorkflowSheetCallback();
+        DatabaseAccessor dbAccessor = fetchDBAccessor();
+        dbAccessor.query(GET_WORKFLOW_SHEET_QUERY, new Object[] {sheetId}, callback);
+
+        if (callback.getResult() != null) {
+            return Iterables.getOnlyElement(callback.getResult());
+        } else {
+            return null;
+        }
+    }
+
     public static List<WorkflowSheet> searchWorkflowSheets(Date startDate, Date endDate, String requester, String productName) throws Exception {
         String query = SEARCH_WORKFLOW_SHEET_QUERY;
         List<Object> params = Lists.newArrayList(startDate, endDate);
@@ -339,6 +358,22 @@ public class DatabaseHelper {
         DatabaseAccessor dbAccessor = fetchDBAccessor();
 
         dbAccessor.execute(ADD_WORKFLOW_DETAILS_QUERY, new Object[] {sheetId, productId, startDate, totalCount, operation.getOperationCode()}, conn);
+    }
+
+    public static List<WorkflowDetails> searchAllPendingWorkflowDetails(List<String> allowedOperations) throws Exception {
+        DatabaseAccessor dbAccessor = fetchDBAccessor();
+
+        WorkflowDetailsCallback callback = new WorkflowDetailsCallback();
+        dbAccessor.query(SEARCH_ALL_PENDING_WORKFLOW_DETAILS_QUERY, callback);
+
+        List<WorkflowDetails> workflowDetails = new ArrayList<>();
+        for (WorkflowDetails workflowDetail : callback.getResult()) {
+            if (workflowDetail.getOperation() != null) {
+                workflowDetail.setEnabled(allowedOperations.contains(workflowDetail.getOperation().name()));
+                workflowDetails.add(workflowDetail);
+            }
+        }
+        return workflowDetails;
     }
 
     public static List<WorkflowDetails> searchPendingWorkflowDetails(Operation operation) throws Exception {

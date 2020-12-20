@@ -9,8 +9,8 @@ import java.util.Properties;
 
 public class DatabaseAccessor {
 
-    //private static final String DB_HOST_NAME = "rm-2zett33e1t4a03gvgio.mysql.rds.aliyuncs.com";
-    private static final String DB_HOST_NAME = "10.0.2.2";
+    private static final String DB_HOST_NAME = "rm-2zett33e1t4a03gvgio.mysql.rds.aliyuncs.com";
+    //private static final String DB_HOST_NAME = "10.0.2.2";
     private static final int QUERY_TIMEOUT = 20;
 
     private static final String START_TRANSACTION = "start transaction";
@@ -125,7 +125,7 @@ public class DatabaseAccessor {
     }
 
     private String computeConnectionString() {
-        return String.format("jdbc:mysql://%s:3306/refine2", DB_HOST_NAME);
+        return String.format("jdbc:mysql://%s:3306/refine", DB_HOST_NAME);
     }
 
     private Properties getConnectionProperties() {

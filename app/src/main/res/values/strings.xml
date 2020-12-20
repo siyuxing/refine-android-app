@@ -38,6 +38,7 @@
     <string name="full_title">悦丰研磨材料有限公司</string>
     <string name="work_summary">工作汇总</string>
     <string name="check_details">查看详情</string>
+    <string name="check_sheet_details">任务单详情</string>
     <string name="poured">浇注完成</string>
     <string name="hydro">醛化完成</string>
     <string name="dried">干燥完成</string>

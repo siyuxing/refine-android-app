@@ -78,7 +78,7 @@ public class WorkflowDetailsDisplayAdapter extends RecyclerView.Adapter<Workflow
 
         @Override
         public void onClick(View v) {
-            Integer clickedPosition = getAdapterPosition();
+            int clickedPosition = getAdapterPosition();
             if (clickedPosition == checkedPosition) {
                 v.setSelected(false);
                 checkedPosition = -1;
@@ -86,7 +86,7 @@ public class WorkflowDetailsDisplayAdapter extends RecyclerView.Adapter<Workflow
                 checkedPosition = clickedPosition;
                 v.setSelected(true);
                 for (int i = 0; i < parent.getChildCount(); i++) {
-                    if (i != checkedPosition) {
+                    if (i != clickedPosition) {
                         parent.getChildAt(i).setSelected(false);
                     }
                 }

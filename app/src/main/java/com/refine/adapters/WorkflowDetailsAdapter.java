@@ -52,16 +52,24 @@ public class WorkflowDetailsAdapter extends RecyclerView.Adapter<WorkflowDetails
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final ViewGroup parent;
+        private final View itemView;
+        private final View title;
         private final TextView workId;
         private final TextView product;
+        private final TextView operation;
         private final TextView startDate;
         private final TextView totalCount;
+
+        private boolean enabled = true;
 
         public ViewHolder(ViewGroup parent, View itemView) {
             super(itemView);
             this.parent = parent;
+            this.itemView = itemView;
+            this.title = itemView.findViewById(R.id.title);
             this.workId = itemView.findViewById(R.id.work_id);
             this.product = itemView.findViewById(R.id.product);
+            this.operation = itemView.findViewById(R.id.operation);
             this.startDate = itemView.findViewById(R.id.start_date);
             this.totalCount = itemView.findViewById(R.id.total_count);
             itemView.setOnClickListener(this);
@@ -69,15 +77,17 @@ public class WorkflowDetailsAdapter extends RecyclerView.Adapter<WorkflowDetails
 
         @Override
         public void onClick(View v) {
-            if (getAdapterPosition() == checkedPosition) {
-                v.setSelected(false);
-                checkedPosition = -1;
-            } else {
-                checkedPosition = getAdapterPosition();
-                v.setSelected(true);
-                for (int i = 0; i < parent.getChildCount(); i++) {
-                    if (i != checkedPosition) {
-                        parent.getChildAt(i).setSelected(false);
+            if (enabled) {
+                if (getAdapterPosition() == checkedPosition) {
+                    v.setSelected(false);
+                    checkedPosition = -1;
+                } else {
+                    checkedPosition = getAdapterPosition();
+                    v.setSelected(true);
+                    for (int i = 0; i < parent.getChildCount(); i++) {
+                        if (i != checkedPosition) {
+                            parent.getChildAt(i).setSelected(false);
+                        }
                     }
                 }
             }
@@ -88,8 +98,19 @@ public class WorkflowDetailsAdapter extends RecyclerView.Adapter<WorkflowDetails
 
             workId.setText(workflowDetails.getWorkflowId());
             product.setText(workflowDetails.getProductName());
+            operation.setText(workflowDetails.getOperation().name());
             startDate.setText(sdf.format(workflowDetails.getStartDate()));
             totalCount.setText(String.valueOf(workflowDetails.getNumOfTotal()));
+
+            enabled = workflowDetails.isEnabled();
+
+            itemView.setEnabled(enabled);
+
+            if (enabled) {
+                title.setBackground(parent.getResources().getDrawable(R.color.colorSuccess));
+            } else {
+                title.setBackground(parent.getResources().getDrawable(R.color.tab_unselect_txt));
+            }
         }
     }
 }

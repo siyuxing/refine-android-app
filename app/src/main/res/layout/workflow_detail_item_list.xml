@@ -7,8 +7,6 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp"
     android:textSize="12sp"
     android:textStyle="bold"
     android:textColor="@color/trans_text_black"
@@ -16,52 +14,43 @@
     android:background="@drawable/item_selector" >
 
     <LinearLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:background="@color/colorSuccess"
+        android:baselineAligned="false">
+
+        <TextView
+            android:id="@+id/work_id"
+            android:paddingTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sheet_id"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:maxLines="2"
+            android:inputType="none"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
+            android:textColor="@color/view_gray"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:orientation="horizontal"
         android:layout_gravity="bottom"
         android:theme="@style/TextLabel"
         android:baselineAligned="false">
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:theme="@style/TextLabel"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:clickable="false"
-            android:orientation="vertical"
-            android:layout_weight="2">
-
-            <TextView
-                android:id="@+id/work_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/sheet_id"
-                android:textSize="14sp"
-                android:maxLines="2"
-                android:inputType="none"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:clickable="false"
-                android:textColor="@color/text_gray"/>
-
-            <TextView
-                android:id="@+id/work_id"
-                android:paddingTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/sheet_id"
-                android:textSize="12sp"
-                android:maxLines="2"
-                android:inputType="none"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:clickable="false"
-                android:textColor="@color/colorSuccess"/>
-        </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="0dp"
@@ -92,6 +81,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/product_name"
+                android:textSize="12sp"
+                android:maxLines="2"
+                android:inputType="none"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textColor="@color/colorSuccess"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:theme="@style/TextLabel"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/operatiom_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/operation"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:textSize="14sp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/text_gray"/>
+
+            <TextView
+                android:id="@+id/operation"
+                android:paddingTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/operation"
                 android:textSize="12sp"
                 android:maxLines="2"
                 android:inputType="none"

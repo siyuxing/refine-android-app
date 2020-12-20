@@ -12,12 +12,19 @@ import com.refine.activities.admin.CheckUserActivity;
 import com.refine.activities.product.AddPickupHistoryActivity;
 import com.refine.activities.product.CreateWorkflowSheetActivity;
 import com.refine.activities.product.ProductOwnerOperations;
+import com.refine.activities.product.check.CheckAllPendingTasksActivity;
 import com.refine.activities.product.check.CheckPendingCutTasksActivity;
 import com.refine.activities.product.check.CheckPendingDipInTasksActivity;
 import com.refine.activities.product.check.CheckPendingDryTasksActivity;
 import com.refine.activities.product.check.CheckPendingHydroTasksActivity;
 import com.refine.activities.product.check.CheckPendingPackTasksActivity;
 import com.refine.activities.product.check.CheckPendingPourTasksActivity;
+import com.refine.activities.product.record.RecordCutTaskHistoryActivity;
+import com.refine.activities.product.record.RecordDipInTaskHistoryActivity;
+import com.refine.activities.product.record.RecordDryTaskHistoryActivity;
+import com.refine.activities.product.record.RecordHydroTaskHistoryActivity;
+import com.refine.activities.product.record.RecordPackTaskHistoryActivity;
+import com.refine.activities.product.record.RecordPourTaskHistoryActivity;
 import com.refine.activities.search.AdminWorkflowSheetSearchActivity;
 import com.refine.activities.search.OwnerSummarySearchActivity;
 import com.refine.activities.search.ProductStockSearchActivity;
@@ -35,6 +42,7 @@ public final class ActivityConstants {
                       .put(AdminUserHome.PRODUCT_OWNER_OPTIONS, ProductOwnerOperations.class)
                       .put(ProductOwnerOperations.PRODUCT_STOCK_SEARCH, ProductStockSearchActivity.class)
                       .put(Operation.创建任务单.name(), CreateWorkflowSheetActivity.class)
+                      .put(ProductOwnerOperations.RECORD_JOB, CheckAllPendingTasksActivity.class)
                       .put(Operation.配料浸泡.name(), CheckPendingDipInTasksActivity.class)
                       .put(Operation.煮滤.name(), CheckPendingPourTasksActivity.class)
                       .put(Operation.湿加工.name(), CheckPendingHydroTasksActivity.class)
@@ -47,6 +55,18 @@ public final class ActivityConstants {
                       .put(SearchOperations.FULL_JOB_HISTORY_SEARCH, AdminWorkflowSheetSearchActivity.class)
                       .put(SearchOperations.OWNER_SUMMARY_SEARCH, OwnerSummarySearchActivity.class)
                       .build();
+
+
+    public static final Map<Operation, Class<?>> RECORD_CLASS_MAP
+            = new ImmutableMap.Builder<Operation, Class<?>>()
+                      .put(Operation.配料浸泡, RecordDipInTaskHistoryActivity.class)
+                      .put(Operation.煮滤, RecordPourTaskHistoryActivity.class)
+                      .put(Operation.湿加工, RecordHydroTaskHistoryActivity.class)
+                      .put(Operation.干燥硬化, RecordDryTaskHistoryActivity.class)
+                      .put(Operation.干加工切割, RecordCutTaskHistoryActivity.class)
+                      .put(Operation.包装入库, RecordPackTaskHistoryActivity.class)
+                      .build();
+
 
     public static final String START_DATE_EXTRA = "START_DATE";
     public static final String END_DATE_EXTRA = "END_DATE";

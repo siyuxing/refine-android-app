@@ -54,6 +54,8 @@ public enum Operation {
                 operations.add(operation);
             }
         }
+
+        Collections.sort(operations, (o1, o2) -> o1.getRank() - o2.getRank());
         return operations;
     }
 

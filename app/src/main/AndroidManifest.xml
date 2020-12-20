@@ -32,6 +32,7 @@
         <activity android:name="com.refine.activities.product.ProductOwnerOperations" />
         <activity android:name="com.refine.activities.product.CreateWorkflowSheetActivity" />
 
+        <activity android:name="com.refine.activities.product.check.CheckAllPendingTasksActivity" />
         <activity android:name="com.refine.activities.product.check.CheckPendingDipInTasksActivity" />
         <activity android:name="com.refine.activities.product.check.CheckPendingPourTasksActivity" />
         <activity android:name="com.refine.activities.product.check.CheckPendingHydroTasksActivity" />
