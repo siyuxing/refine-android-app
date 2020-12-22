@@ -1,5 +1,7 @@
 package com.refine.activities.product.check;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import android.content.Intent;
@@ -22,6 +24,7 @@ import com.refine.model.WorkflowDetails;
 import com.refine.model.WorkflowSheet;
 
 public class CheckAllPendingTasksActivity extends CommonActivity {
+    private static final int MAX_RECORD_IN_SEARCH = 10;
     private RecyclerView recyclerView;
     private WorkflowDetailsAdapter workflowDetailsAdapter;
 
@@ -30,7 +33,7 @@ public class CheckAllPendingTasksActivity extends CommonActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_pending_tasks_common);
 
-        setTitle("待处理任务");
+        setTitle("任务详情");
 
         recyclerView = findViewById(R.id.item_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CheckAllPendingTasksActivity.this);
@@ -48,6 +51,16 @@ public class CheckAllPendingTasksActivity extends CommonActivity {
         try {
             List<WorkflowDetails> workflowDetails = DatabaseHelper.searchAllPendingWorkflowDetails(
                     AccountProfileLocator.getProfile().getAllowedOperations());
+
+            int remainNum = MAX_RECORD_IN_SEARCH - workflowDetails.size();
+            if (remainNum > 0) {
+                Calendar lookBackDate = Calendar.getInstance();
+                lookBackDate.set(Calendar.MONTH, lookBackDate.get(Calendar.MONTH) - 1);
+                lookBackDate.set(Calendar.DAY_OF_MONTH, lookBackDate.get(Calendar.DAY_OF_MONTH) + 1);
+
+                workflowDetails.addAll(DatabaseHelper.searchRecentFinishedWorkflowDetails(
+                        AccountProfileLocator.getProfile().getCurrentUser(), new Date(lookBackDate.getTimeInMillis()), remainNum));
+            }
 
             if (workflowDetails.isEmpty()) {
                 runInBackground(() -> {
@@ -122,7 +135,9 @@ public class CheckAllPendingTasksActivity extends CommonActivity {
     private void record(View v) {
         if (workflowDetailsAdapter.getSelected() == null) {
             errorPopUp("请选择任务");
-        } else {
+        } else if (Boolean.TRUE.equals(workflowDetailsAdapter.getSelected().isFinish())) {
+            errorPopUp("此任务已完成");
+        }  else {
             Thread background = new Thread() {
                 public void run() {
                     Operation selectedOperation = workflowDetailsAdapter.getSelected().getOperation();

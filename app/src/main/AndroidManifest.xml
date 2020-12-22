@@ -33,12 +33,6 @@
         <activity android:name="com.refine.activities.product.CreateWorkflowSheetActivity" />
 
         <activity android:name="com.refine.activities.product.check.CheckAllPendingTasksActivity" />
-        <activity android:name="com.refine.activities.product.check.CheckPendingDipInTasksActivity" />
-        <activity android:name="com.refine.activities.product.check.CheckPendingPourTasksActivity" />
-        <activity android:name="com.refine.activities.product.check.CheckPendingHydroTasksActivity" />
-        <activity android:name="com.refine.activities.product.check.CheckPendingDryTasksActivity" />
-        <activity android:name="com.refine.activities.product.check.CheckPendingCutTasksActivity" />
-        <activity android:name="com.refine.activities.product.check.CheckPendingPackTasksActivity" />
 
         <activity android:name="com.refine.activities.product.record.RecordDipInTaskHistoryActivity" />
         <activity android:name="com.refine.activities.product.record.RecordPourTaskHistoryActivity" />

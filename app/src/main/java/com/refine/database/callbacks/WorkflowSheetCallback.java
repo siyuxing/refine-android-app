@@ -1,4 +1,4 @@
-package com.refine.database;
+package com.refine.database.callbacks;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -22,11 +22,12 @@ public class WorkflowSheetCallback implements ResultSetCallback<List<WorkflowShe
     private static final String START_DATE_COLUMN = "start_date";
     private static final String FINISH_DATE_COLUMN = "end_date";
 
-    private List<WorkflowSheet> workflowSheets = new ArrayList<>();
+    private List<WorkflowSheet> workflowSheets;
 
 
     @Override
     public void processResultSet(ResultSet rs) throws Exception {
+        workflowSheets = new ArrayList<>();
         do {
             WorkflowSheet sheet = new WorkflowSheet();
             sheet.setSheetId(rs.getString(ID_COLUMN));

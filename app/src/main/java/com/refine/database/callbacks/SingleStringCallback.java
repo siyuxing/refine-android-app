@@ -1,4 +1,4 @@
-package com.refine.database;
+package com.refine.database.callbacks;
 
 import java.sql.ResultSet;
 

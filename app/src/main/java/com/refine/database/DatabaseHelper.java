@@ -5,9 +5,18 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.refine.account.AccountProfileLocator;
+import com.refine.database.callbacks.OwnerSummaryCallback;
+import com.refine.database.callbacks.ProductStockCallback;
+import com.refine.database.callbacks.SingleNumberCallback;
+import com.refine.database.callbacks.SingleStringListCallback;
+import com.refine.database.callbacks.UserCallback;
+import com.refine.database.callbacks.UsersCallback;
+import com.refine.database.callbacks.WorkflowDetailsCallback;
+import com.refine.database.callbacks.WorkflowSheetCallback;
 import com.refine.model.Operation;
 import com.refine.model.OwnerSummary;
 import com.refine.model.ProductStatus;
@@ -27,15 +36,15 @@ public class DatabaseHelper {
                                                                    " ON *.* TO ?@'%'";
     private static final String GRANT_NORMAL_PERMISSION_QUERY = "GRANT SELECT, INSERT, UPDATE, DELETE ON refine.* TO ?@'%'";
     private static final String FLUSH_PRIVILEGES = "FLUSH PRIVILEGES";
-    private static final String LIST_ALL_USERS_QUERY = "SELECT User from mysql.User where Host='%'";
+    private static final String LIST_ALL_USERS_QUERY = "SELECT username from users where is_deleted = 0";
 
     private static final String CHECK_USER_INFO_QUERY = "SELECT count(*) FROM users WHERE username = ?";
-    private static final String INSERT_USER_INFO_QUERY = "INSERT INTO users (username, display_name, is_admin) VALUES (?, ?, ?)";
-    private static final String MODIFY_USER_INFO_QUERY = "UPDATE users SET display_name = ?, is_admin = ? WHERE username = ?";
-    private static final String MARK_USER_DELETION_QUERY = "UPDATE users SET display_name = concat(display_name, '(已删除用户)'), is_admin = 0 WHERE username = ?";
-    private static final String INSERT_USER_PERMISSION_QUERY = "INSERT INTO user_permissions (username, permission) VALUES (?, ?)";
-    private static final String REMOVE_USER_PERMISSIONS_QUERY = "DELETE FROM user_permissions WHERE username = ?";
-    private static final String SELECT_USER_INFO_QUERY = "SELECT * FROM users WHERE username = ?";
+    private static final String INSERT_USER_INFO_QUERY = "INSERT INTO users (username, display_name, is_admin, permissions) VALUES (?, ?, ?, ?)";
+    private static final String MODIFY_USER_INFO_QUERY = "UPDATE users SET display_name = ?, is_admin = ?, permissions = ? WHERE username = ?";
+    private static final String MARK_USER_DELETION_QUERY = "UPDATE users SET username = concat(username, '(已删除)'), display_name = concat(display_name, '(已删除)')," +
+                                                                   " is_deleted = 1, is_admin = 0 WHERE username = ?";
+    private static final String LIST_ALL_USER_INFO_QUERY = "SELECT * FROM users WHERE is_deleted = 0";
+    private static final String SELECT_SINGLE_USER_INFO_QUERY = "SELECT * FROM users WHERE username = ?";
 
     private static final String CHECK_PRODUCT_QUERY = "SELECT count(*) FROM products WHERE product_name = ?";
     private static final String ADD_PRODUCT_QUERY = "INSERT INTO products (product_name) VALUES (?)";
@@ -65,6 +74,8 @@ public class DatabaseHelper {
                                                                          + " additional_note = ?, is_finish = true WHERE id = ?";
     private static final String SEARCH_ALL_PENDING_WORKFLOW_DETAILS_QUERY = "SELECT wd.*, product_name FROM workflow_details wd join products p on wd.product_id = p.id" +
                                                                                 " WHERE is_finish = '0'";
+    private static final String SEARCH_RECENT_WORKFLOW_DETAILS_QUERY = "SELECT wd.*, product_name FROM workflow_details wd join products p on wd.product_id = p.id" +
+                                       " WHERE is_finish = '1' and owner_username = ? and finish_date > ? order by finish_date desc limit ?";
     private static final String SEARCH_PENDING_WORKFLOW_DETAILS_QUERY = "SELECT wd.*, product_name FROM workflow_details wd join products p on wd.product_id = p.id" +
                                                                                 " WHERE operation = ? AND is_finish = '0'";
     private static final String GET_WORKFLOW_DETAILS_QUERY = "SELECT wd.*, product_name FROM workflow_details wd join products p on wd.product_id = p.id WHERE wd.id = ?";
@@ -143,7 +154,6 @@ public class DatabaseHelper {
     public static void dropUser(String username) throws Exception {
         DatabaseAccessor dbAccessor = fetchDBAccessor();
 
-        dbAccessor.execute(REMOVE_USER_PERMISSIONS_QUERY, new String[] {username});
         SingleNumberCallback checkCallback = new SingleNumberCallback();
         dbAccessor.query(CHECK_USER_INFO_QUERY, new String[] {username}, checkCallback);
         if (checkCallback.getResult() == 1L) {
@@ -163,34 +173,11 @@ public class DatabaseHelper {
     }
 
     public static List<User> listAllUsers() throws Exception {
-        List<User> users = new ArrayList<>();
+        UsersCallback callback = new UsersCallback();
+        DatabaseAccessor dbAccessor = fetchDBAccessor();
+        dbAccessor.query(LIST_ALL_USER_INFO_QUERY, callback);
 
-        for (String userName : listAllUserNames()) {
-            User user = getUser(userName);
-            if (user != null) {
-                users.add(user);
-            }
-        }
-        return users;
-    }
-
-    public static List<String> listAllOtherUserNames() throws Exception {
-        List<String> allUsers = listAllUserNames();
-        allUsers.remove(fetchDBAccessor().getUsername());
-
-        return allUsers;
-    }
-
-    public static List<User> listAllOtherUsers() throws Exception {
-        List<User> users = new ArrayList<>();
-
-        for (String userName : listAllOtherUserNames()) {
-            User user = getUser(userName);
-            if (user != null) {
-                users.add(getUser(userName));
-            }
-        }
-        return users;
+        return callback.getResult();
     }
 
     public static void updateUserInformation(String username, String displayName, boolean adminUser, List<String> permissions) throws Exception {
@@ -199,19 +186,11 @@ public class DatabaseHelper {
         SingleNumberCallback checkCallback = new SingleNumberCallback();
         dbAccessor.query(CHECK_USER_INFO_QUERY, new String[] {username}, checkCallback);
 
+        String permissionString = Joiner.on(',').join(permissions);
         if (checkCallback.getResult() == 1L) {
-            dbAccessor.execute(MODIFY_USER_INFO_QUERY, new Object[] {displayName, adminUser, username});
+            dbAccessor.execute(MODIFY_USER_INFO_QUERY, new Object[] {displayName, adminUser, permissionString, username});
         } else {
-            dbAccessor.execute(INSERT_USER_INFO_QUERY, new Object[] {username, displayName, adminUser});
-        }
-
-        for (String permission : permissions) {
-            try {
-                dbAccessor.execute(INSERT_USER_PERMISSION_QUERY, new String[]{username, permission});
-            } catch (Exception e) {
-                // permission already exists, move on
-                e.printStackTrace();
-            }
+            dbAccessor.execute(INSERT_USER_INFO_QUERY, new Object[] {username, displayName, adminUser, permissionString});
         }
     }
 
@@ -368,12 +347,21 @@ public class DatabaseHelper {
 
         List<WorkflowDetails> workflowDetails = new ArrayList<>();
         for (WorkflowDetails workflowDetail : callback.getResult()) {
-            if (workflowDetail.getOperation() != null) {
-                workflowDetail.setEnabled(allowedOperations.contains(workflowDetail.getOperation().name()));
+            if (workflowDetail.getOperation() != null &&
+                        allowedOperations.contains(workflowDetail.getOperation().name())) {
                 workflowDetails.add(workflowDetail);
             }
         }
         return workflowDetails;
+    }
+
+    public static List<WorkflowDetails> searchRecentFinishedWorkflowDetails(String username, Date lookBackDate, int maxRecord) throws Exception {
+        DatabaseAccessor dbAccessor = fetchDBAccessor();
+
+        WorkflowDetailsCallback callback = new WorkflowDetailsCallback();
+        dbAccessor.query(SEARCH_RECENT_WORKFLOW_DETAILS_QUERY, new Object[] {username, lookBackDate, maxRecord}, callback);
+
+        return callback.getResult();
     }
 
     public static List<WorkflowDetails> searchPendingWorkflowDetails(Operation operation) throws Exception {
@@ -467,20 +455,17 @@ public class DatabaseHelper {
         UserCallback callback = new UserCallback();
         DatabaseAccessor dbAccessor = fetchDBAccessor();
 
-        dbAccessor.query(SELECT_USER_INFO_QUERY, new Object[]{username}, callback);
+        dbAccessor.query(SELECT_SINGLE_USER_INFO_QUERY, new Object[]{username}, callback);
 
-        User user = callback.getResult();
+        return callback.getResult();
+    }
 
-        if (user != null) {
-            SingleStringListCallback permissionCallback = new SingleStringListCallback();
-            dbAccessor.query("SELECT permission from user_permissions where username = ?", new String[] {username},
-                           permissionCallback);
+    public static User getUser(String username, DatabaseAccessor dbAccessor) throws Exception {
+        UserCallback callback = new UserCallback();
 
-            user.addPermissions(Operation.generateUserOperations(
-                    Operation.fromPermissionCodes(permissionCallback.getResult())));
-        }
+        dbAccessor.query(SELECT_SINGLE_USER_INFO_QUERY, new Object[]{username}, callback);
 
-        return user;
+        return callback.getResult();
     }
 
     // private methods

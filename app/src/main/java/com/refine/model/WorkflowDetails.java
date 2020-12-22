@@ -17,7 +17,6 @@ public class WorkflowDetails implements Serializable {
     private Date startDate;
     private Date finishDate;
     private Boolean finish;
-    private boolean enabled = true;
 
     public Long getId() {
         return id;
@@ -121,13 +120,5 @@ public class WorkflowDetails implements Serializable {
 
     public void setFinish(Boolean finish) {
         this.finish = finish;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 }

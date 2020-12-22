@@ -7,10 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import com.refine.database.callbacks.ResultSetCallback;
+
 public class DatabaseAccessor {
 
-    private static final String DB_HOST_NAME = "rm-2zett33e1t4a03gvgio.mysql.rds.aliyuncs.com";
-    //private static final String DB_HOST_NAME = "10.0.2.2";
+    //private static final String DB_HOST_NAME = "rm-2zett33e1t4a03gvgio.mysql.rds.aliyuncs.com";
+    private static final String DB_HOST_NAME = "10.0.2.2";
     private static final int QUERY_TIMEOUT = 20;
 
     private static final String START_TRANSACTION = "start transaction";

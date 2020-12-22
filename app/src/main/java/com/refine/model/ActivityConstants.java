@@ -13,12 +13,6 @@ import com.refine.activities.product.AddPickupHistoryActivity;
 import com.refine.activities.product.CreateWorkflowSheetActivity;
 import com.refine.activities.product.ProductOwnerOperations;
 import com.refine.activities.product.check.CheckAllPendingTasksActivity;
-import com.refine.activities.product.check.CheckPendingCutTasksActivity;
-import com.refine.activities.product.check.CheckPendingDipInTasksActivity;
-import com.refine.activities.product.check.CheckPendingDryTasksActivity;
-import com.refine.activities.product.check.CheckPendingHydroTasksActivity;
-import com.refine.activities.product.check.CheckPendingPackTasksActivity;
-import com.refine.activities.product.check.CheckPendingPourTasksActivity;
 import com.refine.activities.product.record.RecordCutTaskHistoryActivity;
 import com.refine.activities.product.record.RecordDipInTaskHistoryActivity;
 import com.refine.activities.product.record.RecordDryTaskHistoryActivity;
@@ -41,14 +35,8 @@ public final class ActivityConstants {
 
                       .put(AdminUserHome.PRODUCT_OWNER_OPTIONS, ProductOwnerOperations.class)
                       .put(ProductOwnerOperations.PRODUCT_STOCK_SEARCH, ProductStockSearchActivity.class)
-                      .put(Operation.创建任务单.name(), CreateWorkflowSheetActivity.class)
-                      .put(ProductOwnerOperations.RECORD_JOB, CheckAllPendingTasksActivity.class)
-                      .put(Operation.配料浸泡.name(), CheckPendingDipInTasksActivity.class)
-                      .put(Operation.煮滤.name(), CheckPendingPourTasksActivity.class)
-                      .put(Operation.湿加工.name(), CheckPendingHydroTasksActivity.class)
-                      .put(Operation.干燥硬化.name(), CheckPendingDryTasksActivity.class)
-                      .put(Operation.干加工切割.name(), CheckPendingCutTasksActivity.class)
-                      .put(Operation.包装入库.name(), CheckPendingPackTasksActivity.class)
+                      .put(Operation.创建新任务.name(), CreateWorkflowSheetActivity.class)
+                      .put(ProductOwnerOperations.WORK_DETAILS_CHECK, CheckAllPendingTasksActivity.class)
                       .put(Operation.出库.name(), AddPickupHistoryActivity.class)
 
                       .put(AdminUserHome.SEARCH_OPTIONS, SearchOperations.class)

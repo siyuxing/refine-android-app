@@ -3,19 +3,23 @@ package com.refine.activities;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.refine.R;
 import com.refine.account.AccountProfileLocator;
-import com.refine.database.DatabaseHelper;
-import com.refine.database.InsuffcientProductException;
+import com.refine.utils.PasswordUtils;
 
 public abstract class CommonActivity extends AppCompatActivity {
     public static final String DATE_FORMAT = "yyyy-MM-dd"; //In which you need put here
+    public static final String USERNAME_KEY = "username";
+    public static final String PASSWORD_KEY = "password";
 
     private Snackbar snackbar = null;
 
@@ -36,9 +40,10 @@ public abstract class CommonActivity extends AppCompatActivity {
             public void run() {
                 try {
                     // Thread will sleep for 1 second
-                    sleep(1000);
+                    sleep(500);
 
                     AccountProfileLocator.resetProfile();
+                    saveLoginInfo(null, null);
                     Intent intent = new Intent(CommonActivity.this, UserLoginActivity.class);
                     startActivity(intent);
 
@@ -105,5 +110,29 @@ public abstract class CommonActivity extends AppCompatActivity {
 
         // start thread
         background.start();
+    }
+
+    protected void saveLoginInfo(String username, String password) {
+        SharedPreferences wmbPreference = getApplicationContext().getSharedPreferences("RefineManagement", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = wmbPreference.edit();
+
+        editor.putString(USERNAME_KEY, username);
+        editor.putString(PASSWORD_KEY, PasswordUtils.encrypt(password));
+        editor.apply();
+    }
+
+    protected Pair<String, String> getLoginInfo() {
+        SharedPreferences wmbPreference = getApplicationContext().getSharedPreferences("RefineManagement", Context.MODE_PRIVATE);
+
+        try {
+            String username = wmbPreference.getString(USERNAME_KEY, "");
+            String password = PasswordUtils.decrypt(wmbPreference.getString(PASSWORD_KEY, ""));
+
+            return Pair.create(username, password);
+        } catch (Exception e) {
+            saveLoginInfo(null, null);
+            return null;
+        }
     }
 }

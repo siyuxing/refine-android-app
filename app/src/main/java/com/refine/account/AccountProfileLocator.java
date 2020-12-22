@@ -3,9 +3,11 @@ package com.refine.account;
 import java.util.List;
 
 import com.refine.database.DatabaseAccessor;
-import com.refine.database.SingleNumberCallback;
-import com.refine.database.SingleStringListCallback;
+import com.refine.database.DatabaseHelper;
+import com.refine.database.callbacks.SingleNumberCallback;
+import com.refine.database.callbacks.SingleStringListCallback;
 import com.refine.model.Operation;
+import com.refine.model.User;
 
 public class AccountProfileLocator {
 
@@ -18,10 +20,9 @@ public class AccountProfileLocator {
 
     private AccountProfileLocator(String username,
                                   String password,
-                                  List<String> permissionCodes,
-                                  boolean isAdmin) {
-        this.roles = Operation.fromPermissionCodes(permissionCodes);
-        this.isAdmin = isAdmin;
+                                  User user) {
+        this.roles = Operation.fromNames(user.getPermissions());
+        this.isAdmin = user.getIsAdmin();
         this.allowedOperations = Operation.generateUserOperations(roles);
         this.dbAccessor = new DatabaseAccessor(username, password);
     }
@@ -30,18 +31,8 @@ public class AccountProfileLocator {
         DatabaseAccessor accessor = new DatabaseAccessor(username, password);
 
         try {
-            SingleStringListCallback callback = new SingleStringListCallback();
-            accessor.query("SELECT permission from user_permissions where username = ?", new String[] {username},
-                           callback);
-
-            SingleNumberCallback checkAdmin = new SingleNumberCallback();
-            accessor.query("SELECT is_admin from users where username = ?", new String[] {username},
-                           checkAdmin);
-
-            boolean isAdmin = checkAdmin.getResult() == 1;
-
-            AccountProfileLocator.profile = new AccountProfileLocator(
-                    username, password, callback.getResult(), isAdmin);
+            User user = DatabaseHelper.getUser(username, accessor);
+            AccountProfileLocator.profile = new AccountProfileLocator(username, password, user);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

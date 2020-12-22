@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public enum Operation {
-    创建任务单("add_workflow", 1, null, null),
+    创建新任务("add_workflow", 1, null, null),
     配料浸泡("jiaozhu", 1, null, ProductStatus.待煮滤),
     煮滤("zhulv", 2, ProductStatus.待煮滤, ProductStatus.待湿加工),
     湿加工("wet", 3, ProductStatus.待湿加工, ProductStatus.待干燥),

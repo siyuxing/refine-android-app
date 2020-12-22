@@ -6,6 +6,7 @@ import java.util.concurrent.FutureTask;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,9 +37,24 @@ public class UserLoginActivity extends CommonActivity {
             normalPopUp("用户已登陆，进入主界面...");
             gotoHomePage();
         }
+
+        Pair<String, String> loginInfo = getLoginInfo();
+        if (loginInfo != null && loginInfo.first != null && loginInfo.second != null) {
+            usernameET.setText(loginInfo.first);
+            passwordET.setText(loginInfo.second);
+            try {
+                login();
+            } catch (ExecutionException | InterruptedException e) {
+                resetInputs();
+            }
+        }
     }
 
-    public void loginActivity(View view) throws ExecutionException, InterruptedException {
+    public void loginActivity(View v) throws ExecutionException, InterruptedException {
+        login();
+    }
+
+    public void login() throws ExecutionException, InterruptedException {
         Button login = findViewById(R.id.button);
         login.setEnabled(false);
         login.setClickable(false);
@@ -55,9 +71,11 @@ public class UserLoginActivity extends CommonActivity {
 
             if (task.get()) {
                 successPopUp("登陆成功，进入主界面...");
+                saveLoginInfo(username, password);
                 gotoHomePage();
             } else {
                 errorPopUp("登陆失败");
+                saveLoginInfo(null, null);
             }
         } finally {
             login.setEnabled(true);
@@ -80,9 +98,8 @@ public class UserLoginActivity extends CommonActivity {
                     }
                     startActivity(intent);
                     resetInputs();
-
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
             }
         };

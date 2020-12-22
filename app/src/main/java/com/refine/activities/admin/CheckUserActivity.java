@@ -42,7 +42,7 @@ public class CheckUserActivity extends CommonActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {
-            List<User> allUsers = DatabaseHelper.listAllOtherUsers();
+            List<User> allUsers = DatabaseHelper.listAllUsers();
             adapter = new UserAdapter(CheckUserActivity.this, allUsers);
             recyclerView.setAdapter(adapter);
         } catch (Exception e) {
